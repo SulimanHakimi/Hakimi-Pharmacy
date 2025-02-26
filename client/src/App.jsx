@@ -7,6 +7,11 @@ export default function App() {
         <Router>
             <Routes>
                 <Route path='/' element={<Home />} />
+                <Route path='/account' element={<Home />} />
+                <Route path='/login' element={<Home />} />
+                <Route path='/register' element={<Home />} />
+                <Route path='/blog' element={<Home />} />
+                <Route path='/*' element={<Home />} />
             </Routes>
         </Router>
     );
