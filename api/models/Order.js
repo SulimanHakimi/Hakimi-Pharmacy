@@ -1,0 +1,69 @@
+const mongoose = require("mongoose");
+
+const orderSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  items: [
+    {
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        min: [1, "Quantity must be at least 1"],
+      },
+      price: {
+        type: Number,
+        required: true,
+        min: [0, "Price cannot be less than 0"],
+      },
+    },
+  ],
+  totalPrice: {
+    type: Number,
+    required: true,
+    min: [0, "Total price cannot be less than 0"],
+  },
+  status: {
+    type: String,
+    enum: ["pending", "processed", "shipped", "delivered", "cancelled"],
+    default: "pending",
+  },
+  shippingAddress: {
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    postalCode: { type: String, required: true },
+    country: { type: String, required: true },
+  },
+  paymentStatus: {
+    type: String,
+    enum: ["pending", "paid", "failed"],
+    default: "pending",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+orderSchema.pre("save", function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+module.exports = mongoose.model("Order", orderSchema);

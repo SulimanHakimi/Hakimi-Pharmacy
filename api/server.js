@@ -10,12 +10,11 @@ const cartRoutes = require("./routes/cart");
 const blogRoutes = require("./routes/blog");
 
 const cors = require("cors");
-const dotenv = require("dotenv");
-
-dotenv.config();
+require("dotenv").config();
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+// app.use(passport.initialize());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -23,8 +22,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(passport.initialize());
-app.use(passport.session());
 
 mongoose
   .connect(process.env.MONGODB_URI)
