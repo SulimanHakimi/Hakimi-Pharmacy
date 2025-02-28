@@ -20,7 +20,7 @@ function Login() {
         }}
       >
         <Typography variant="h3" sx={{ marginBottom: 3 }}>
-          به فروشگاه دارو خوش آمدید
+          به فروشگاه دوا خوش آمدید
         </Typography>
         <Typography variant="body1" sx={{ marginBottom: 3 }}>
           لطفاً با استفاده از حساب گوگل خود وارد شوید تا ادامه دهید
@@ -28,7 +28,6 @@ function Login() {
 
         <Button
           variant="contained"
-          color="primary"
           sx={{
             width: "100%",
             height: "50px",
@@ -37,6 +36,7 @@ function Login() {
             justifyContent: "center",
             gap: "10px",
             fontWeight: "bold",
+            backgroundColor:"#00a63e"
           }}
           onClick={handleLogin}
         >

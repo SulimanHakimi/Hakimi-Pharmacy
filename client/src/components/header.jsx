@@ -1,23 +1,28 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png"; // Ensure that the logo path is correct
-import { Box, IconButton, Drawer, List, ListItem, ListItemText } from "@mui/material";
-import { ShoppingCart, AccountCircle, Menu } from "@mui/icons-material"; // MUI Icons
+import logo from "../assets/logo.png";
+import {
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import { ShoppingCart, AccountCircle, Menu } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const toggleLoginStatus = () => {
-    setIsLoggedIn(!isLoggedIn);
-  };
+  const cartQuantity = useSelector((state) => state.cart.cartItems.length);
 
   const toggleDrawer = (open) => {
     setDrawerOpen(open);
   };
 
   return (
-    <header className="bg-white shadow-md">
-      <Box className="flex justify-between items-center max-w-screen-xl mx-auto px-6">
+    <header className="bg-white shadow-md py-2">
+      <Box className="flex justify-between items-center max-w-screen-xl mx-auto px-4">
         <div className="text-2xl font-bold text-green-600">
           <img
             src={logo}
@@ -27,13 +32,18 @@ function Header() {
         </div>
 
         <IconButton
-          color="black"
           onClick={() => toggleDrawer(true)}
+          sx={{
+            display: { sm: "flex", sx: "none", md: "none" },
+            color: "black",
+            "&:hover": {
+              color: "green.600",
+            },
+          }}
         >
           <Menu />
         </IconButton>
-
-        <Box className="hidden md:flex space-x-6">
+        <Box className="hidden md:flex">
           <List className="flex space-x-6">
             <ListItem>
               <ListItemText>
@@ -47,7 +57,7 @@ function Header() {
                 <a href="/shop" className="text-gray-700 hover:text-green-600">
                   خرید
                 </a>
-                <ul className="absolute left-0 hidden group-hover:block bg-white shadow-md rounded-lg p-4 space-y-4 mt-2">
+                <ul className="absolute left-0 hidden group-hover:block bg-white shadow-md rounded-lg py-4 px-6 space-y-4 mt-2">
                   <li>
                     <a href="#" className="text-gray-700 hover:text-green-600">
                       داروهای عمومی
@@ -80,7 +90,10 @@ function Header() {
             </ListItem>
             <ListItem>
               <ListItemText>
-                <a href="/contact" className="text-gray-700 hover:text-green-600">
+                <a
+                  href="/contact"
+                  className="text-gray-700 hover:text-green-600"
+                >
                   تماس
                 </a>
               </ListItemText>
@@ -88,23 +101,31 @@ function Header() {
             <ListItem>
               <ListItemText>
                 <a href="/about" className="text-gray-700 hover:text-green-600">
-                  درباره ما
+                  درباره
                 </a>
               </ListItemText>
             </ListItem>
           </List>
         </Box>
 
-        <Box className="hidden md:flex space-x-6">
-          <IconButton className="text-gray-700 hover:text-green-600">
+        <Box className="hidden md:flex space-x-4 gap-4  items-center">
+          <a href="/cart" className="relative text-gray-700">
             <ShoppingCart />
-          </IconButton>
-          <IconButton
-            onClick={toggleLoginStatus}
-            className="text-gray-700 hover:text-green-600"
-          >
-            {isLoggedIn ? <AccountCircle /> : "ورود"}
-          </IconButton>
+            {cartQuantity > 0 && (
+              <span className="absolute top-[-5px] right-[-5px] bg-red-600 text-white rounded-full px-1 text-xs font-bold">
+                {cartQuantity}
+              </span>
+            )}
+          </a>
+          <ListItemText className="text-gray-700 cursor-pointer">
+            {isLoggedIn ? (
+              <a href="/account">
+                <AccountCircle />
+              </a>
+            ) : (
+              <a href="/login">ورود</a>
+            )}
+          </ListItemText>
         </Box>
       </Box>
 
@@ -112,62 +133,63 @@ function Header() {
         anchor="right"
         open={drawerOpen}
         onClose={() => toggleDrawer(false)}
-        className="md:hidden" 
+        className="md:hidden flex"
       >
         <List className="w-64">
-          <ListItem button>
+          <ListItem>
             <ListItemText>
               <a href="/" className="text-gray-700 hover:text-green-600">
                 خانه
               </a>
             </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemText>
               <a href="/shop" className="text-gray-700 hover:text-green-600">
                 خرید
               </a>
             </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemText>
               <a href="/blog" className="text-gray-700 hover:text-green-600">
                 بلاگ
               </a>
             </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemText>
               <a href="/contact" className="text-gray-700 hover:text-green-600">
                 تماس
               </a>
             </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemText>
               <a href="/about" className="text-gray-700 hover:text-green-600">
                 درباره ما
               </a>
             </ListItemText>
           </ListItem>
-          <ListItem button>
-            <ListItemText>
-              <a href="/login" className="text-gray-700 hover:text-green-600">
-                ورود
-              </a>
-            </ListItemText>
-          </ListItem>
         </List>
-        <Box className="flex flex-col items-end self-end">
-          <IconButton className="text-gray-700">
+        <Box className="flex flex-col items-end px-4">
+          <a href="/cart" className="relative text-gray-700">
             <ShoppingCart />
-          </IconButton>
-          <IconButton
-            onClick={toggleLoginStatus}
-            className="text-gray-700"
-          >
-            {isLoggedIn ? <AccountCircle /> : "ورود"}
-          </IconButton>
+            {cartQuantity > 0 && (
+              <span className="absolute top-[-5px] right-[-5px] bg-red-600 text-white rounded-full px-1 text-xs font-bold">
+                {cartQuantity}
+              </span>
+            )}
+          </a>
+          <ListItemText className="text-gray-700 cursor-pointer">
+            {isLoggedIn ? (
+              <a href="/account">
+                <AccountCircle />
+              </a>
+            ) : (
+              <a href="/login">ورود</a>
+            )}
+          </ListItemText>
         </Box>
       </Drawer>
     </header>

@@ -7,7 +7,7 @@ function Category() {
         خرید از دسته بندی ها
       </h2>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
           <div className="category-item p-4 md:p-6 border border-gray-200 rounded-xl hover:shadow-lg transition duration-300 animate__animated animate__fadeIn animate__delay-3s">
             <a href="/category/medicines">
               <img
@@ -15,7 +15,7 @@ function Category() {
                 alt="Medicines"
                 className="mb-4 mx-auto w-full h-32 md:h-40 object-cover rounded-lg animate__animated animate__fadeIn animate__delay-3s"
               />
-              <p className="text-lg md:text-xl font-semibold text-gray-700">داروها</p>
+              <p className="text-lg md:text-xl font-semibold text-gray-700">دواها</p>
             </a>
           </div>
 

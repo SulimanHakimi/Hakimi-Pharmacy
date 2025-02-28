@@ -7,7 +7,7 @@ const PostSchema = new mongoose.Schema({
   profile: {
     type: String,
     required: false,
-    default: "https://cdn-icons-png.flaticon.com/128/64/64572.png",
+    default: "",
   },
 });
 module.exports = mongoose.model("Post", PostSchema);

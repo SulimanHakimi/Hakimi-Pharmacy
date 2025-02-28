@@ -7,7 +7,7 @@ function Footer() {
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1035.57158981438!2d69.23462518660016!3d34.50960084706597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38d16b0064b7fcf5%3A0xd87ca33b70f9e63c!2zTG9nYXIgUGhhcm1hY3kg2K_ZiNin2K7Yp9mG2Ycg2YTZiNqv2LE!5e0!3m2!1sen!2s!4v1740575159869!5m2!1sen!2s"
           width="100%"
-          height="450"
+          height="350"
           style={{ border: 0 }}
           allowFullScreen=""
           loading="lazy"

@@ -3,23 +3,23 @@ import React from "react";
 const reviews = [
   {
     id: 1,
-    name: "علی احمدی",
+    name: "محمد احمدی",
     rating: 5,
-    comment: "خدمات عالی و داروها به موقع رسید. تجربه خوبی داشتم.",
+    comment: "خدمات عالی و دوا به موقع رسید. تجربه خوبی داشتم.",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1_YfpgNDlbAfaC8LwRlZoCPcDKu3ZHLUqxw&s"
   },
   {
     id: 2,
-    name: "زهرا محمدی",
+    name: "زحل محمدی",
     rating: 4,
-    comment: "بسیار راضی هستم از خرید این دارو. کیفیت خوب بود.",
+    comment: "بسیار راضی هستم از خرید این دوا. کیفیت خوب بود.",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-VobTQHnyuy8HoGazQTdcWgeEugZFttF0aw&s"
   },
   {
     id: 3,
-    name: "حسین کاظمی",
+    name: "نصیر کاظمی",
     rating: 3,
-    comment: "خدمات به موقع نبود و بعضی از داروها موجود نبود.",
+    comment: "خدمات به موقع نبود و بعضی از دواها موجود نبود.",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRppODj3vyIELXidXsB0-R5izXS0W5GLQv__Q&s"
   },
 ];
