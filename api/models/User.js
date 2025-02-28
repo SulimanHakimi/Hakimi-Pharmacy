@@ -6,10 +6,10 @@ const UserSchema = new mongoose.Schema({
   picture: { type: String, required: true },
   givenName: { type: String, required: true },
   familyName: { type: String, required: true },
-  locale: { type: String, required: true },
-  gender: { type: String, required: true },
-  birthday: { type: String, required: true },
-  link: { type: String, required: true },
+  locale: { type: String },
+  gender: { type: String },
+  birthday: { type: String },
+  profileUrl: { type: String },
 });
 
 module.exports = mongoose.model("User", UserSchema);

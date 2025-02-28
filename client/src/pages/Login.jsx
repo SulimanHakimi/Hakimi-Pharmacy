@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
 import { Google } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.user);
+  useEffect(() => {
+    if (user) {
+      navigate("/account");
+    }
+  }, [user, navigate]);
   const handleLogin = () => {
-    window.location.href = `${process.env.API_URL}/auth/google`;
+    window.location.href = `http://localhost:5000/api/auth/google`;
   };
-
   return (
     <Container maxWidth="sm">
       <Box
@@ -36,7 +44,7 @@ function Login() {
             justifyContent: "center",
             gap: "10px",
             fontWeight: "bold",
-            backgroundColor:"#00a63e"
+            backgroundColor: "#00a63e",
           }}
           onClick={handleLogin}
         >

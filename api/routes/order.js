@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { cart, orderAddress } = req.body;
+    const { cart, orderAddress, user } = req.body;
 
     if (!cart || !Array.isArray(cart) || cart.length === 0) {
       return res.status(400).json({ message: "Cart is empty or invalid" });
@@ -24,6 +24,7 @@ router.post("/", async (req, res) => {
         price: item.price,
       })),
       shippingAddress: orderAddress,
+      user: user,
     });
 
     newOrder.totalPrice = newOrder.items.reduce(
@@ -52,7 +53,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/details/:id", async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (!order) {
@@ -61,6 +62,19 @@ router.get("/:id", async (req, res) => {
     res.status(200).json(order);
   } catch (err) {
     res.status(500).json({ message: "Error fetching order", error: err });
+  }
+});
+router.get("/:id", async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.params.id });
+
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: "Orders not found" });
+    }
+
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching orders", error: err });
   }
 });
 

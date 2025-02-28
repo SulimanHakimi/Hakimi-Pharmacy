@@ -13,6 +13,7 @@ import ProfilePage from './pages/Profile';
 import PaymentPage from './pages/Paymentform';
 import CartPage from './pages/Cart';
 import SuccessPage from './pages/Success';
+import LoginSuccess from './pages/LoginSuccess';
 
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/account' element={<ProfilePage />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/login/success' element={<LoginSuccess />} />
                 <Route path='/shop' element={<ShopPage />} />
                 <Route path='/blog' element={<BlogPage />} />
                 <Route path='/blog/post/:id' element={<SingleBlogPage    />} />

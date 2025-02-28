@@ -1,25 +1,27 @@
-// userReducer.js
-
+const savedUser = JSON.parse(localStorage.getItem("user")) || null;
 const initialState = {
-    user: null,  // By default, no user is logged in
-  };
-  
-  const userReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'SET_USER':
-        return {
-          ...state,
-          user: action.payload,
-        };
-      case 'LOGOUT_USER':
-        return {
-          ...state,
-          user: null,
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default userReducer;
-  
+  user: savedUser,
+};
+
+const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "SET_USER":
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case "LOGOUT_USER":
+      localStorage.removeItem("user");
+      return {
+        ...state,
+        user: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default userReducer;

@@ -18,6 +18,7 @@ function PaymentPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
+  const user = useSelector((state) => state.user.user)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ function PaymentPage() {
           street: address.street,
           postalCode: address.postalCode,
         },
+        user: user._id || ''
       };
       const response = await postRequest("orders", orderData);
 

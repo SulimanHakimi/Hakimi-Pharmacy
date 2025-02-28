@@ -17,7 +17,7 @@ function SuccessPage() {
 
     const fetchOrderDetails = async () => {
       try {
-        const response = await getRequest(`orders/${id}`);
+        const response = await getRequest(`orders/details/${id}`);
         setOrder(response);
       } catch (err) {
         setError(err.message || "Failed to fetch order details");

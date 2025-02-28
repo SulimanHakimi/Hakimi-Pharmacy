@@ -1,53 +1,64 @@
-import axios from 'axios';
+import axios from "axios";
 
 const BASE_URL = "http://localhost:5000/api";
 
 const getHeaders = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   return {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 };
 
 export const getRequest = async (endpoint) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${endpoint}`);
+    const response = await axios.get(`${BASE_URL}/${endpoint}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
-    console.error('GET Request Error:', error);
+    console.error("GET Request Error:", error);
     throw error;
   }
 };
 
 export const postRequest = async (endpoint, data) => {
   try {
-    const response = await axios.post(`${BASE_URL}/${endpoint}`, data);
+    const response = await axios.post(`${BASE_URL}/${endpoint}`, data,{
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
-    console.error('POST Request Error:', error);
+    console.error("POST Request Error:", error);
     throw error;
   }
 };
 
 export const putRequest = async (endpoint, data) => {
   try {
-    const response = await axios.put(`${BASE_URL}/${endpoint}`, data, getHeaders());
+    const response = await axios.put(
+      `${BASE_URL}/${endpoint}`,
+      data,
+      getHeaders()
+    );
     return response.data;
   } catch (error) {
-    console.error('PUT Request Error:', error);
+    console.error("PUT Request Error:", error);
     throw error;
   }
 };
 
 export const deleteRequest = async (endpoint) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/${endpoint}`, getHeaders());
+    const response = await axios.delete(
+      `${BASE_URL}/${endpoint}`,
+      getHeaders()
+    );
     return response.data;
   } catch (error) {
-    console.error('DELETE Request Error:', error);
+    console.error("DELETE Request Error:", error);
     throw error;
   }
 };

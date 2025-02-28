@@ -12,9 +12,9 @@ import { ShoppingCart, AccountCircle, Menu } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const cartQuantity = useSelector((state) => state.cart.cartItems.length);
+  const user = useSelector((state) => state.user.user)
 
   const toggleDrawer = (open) => {
     setDrawerOpen(open);
@@ -108,7 +108,7 @@ function Header() {
           </List>
         </Box>
 
-        <Box className="hidden md:flex space-x-4 gap-4  items-center">
+        <Box className="hidden md:flex space-x-4 items-center">
           <a href="/cart" className="relative text-gray-700">
             <ShoppingCart />
             {cartQuantity > 0 && (
@@ -118,9 +118,9 @@ function Header() {
             )}
           </a>
           <ListItemText className="text-gray-700 cursor-pointer">
-            {isLoggedIn ? (
+            {user ? (
               <a href="/account">
-                <AccountCircle />
+                <img className="w-10 h-10 rounded-full" src={user.picture} />
               </a>
             ) : (
               <a href="/login">ورود</a>
@@ -182,10 +182,10 @@ function Header() {
             )}
           </a>
           <ListItemText className="text-gray-700 cursor-pointer">
-            {isLoggedIn ? (
+            {user ? (
               <a href="/account">
-                <AccountCircle />
-              </a>
+                <img className="w-10 h-10 rounded-full" src={user.picture} />
+                </a>
             ) : (
               <a href="/login">ورود</a>
             )}
