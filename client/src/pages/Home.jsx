@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="">
       <Helmet>
         <title>خانه | دواخانه حکیمی</title>
         <meta

@@ -34,6 +34,9 @@ function PaymentPage() {
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
+    if(!user){
+      // navigate("/login");
+    }
     setIsSubmitting(true);
 
     try {
@@ -51,7 +54,7 @@ function PaymentPage() {
           street: address.street,
           postalCode: address.postalCode,
         },
-        user: user._id || ''
+        user: user ? user._id : null
       };
       const response = await postRequest("orders", orderData);
 

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getRequest, postRequest } from "../requestMethods";
-
+import { logoutUser } from "../redux/userActions";
 function ProfilePage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const [prescriptions, setPrescriptions] = useState([]);
   const [doctorRecommendations, setDoctorRecommendations] = useState([]);
   const [orders, setOrders] = useState([]);
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -31,47 +33,53 @@ function ProfilePage() {
       getRequest(`recommendations/${user._id}`).then((res) => {
         setDoctorRecommendations(res);
       });
-      getRequest(`prescription/${user._id}`).then((res) => {
-        setPrescriptions(res);
-      });
     }
+    getRequest(`prescription/${user._id}`).then((res) => {
+      setPrescriptions(res);
+    });
   }, [user]);
 
   const handlePrescriptionUpload = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-  
+
     if (!file) {
       alert("لطفاً یک فایل انتخاب کنید!");
       return;
     }
-  
+
     const MAX_FILE_SIZE = 3 * 1024 * 1024;
     if (file.size > MAX_FILE_SIZE) {
       alert("حجم فایل باید کمتر از ۳ مگابایت باشد!");
       return;
     }
-  
+
     const reader = new FileReader();
     reader.onload = (event) => {
       const base64 = event.target.result;
-      postRequest(`prescription/upload`, { file: base64, userId: user._id })
-        .catch((error) => {
-          console.error("Error uploading prescription:", error);
-        });
+      postRequest(`prescription/upload`, {
+        file: base64,
+        userId: user._id,
+      }).catch((error) => {
+        console.error("Error uploading prescription:", error);
+      });
     };
-  
+
     reader.onerror = (error) => {
       console.error("Error reading file:", error);
       alert("خطا در خواندن فایل!");
     };
-  
-   reader.readAsDataURL(file);
+
+    reader.readAsDataURL(file);
   };
   const fetchDoctorRecommendations = () => {
     getRequest(`recommendations/${user._id}`).then((res) => {
       setDoctorRecommendations(res);
     });
+  };
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    navigate("/login");
   };
 
   return (
@@ -82,23 +90,31 @@ function ProfilePage() {
         </h2>
 
         {user && (
-          <div className="bg-gray-100 p-6 md:p-8 rounded-lg shadow-lg mb-8">
-            <h3 className="text-xl font-semibold mb-4 text-gray-700">
-              اطلاعات کاربر
-            </h3>
-            <div className="flex items-center space-x-4">
-              <img
-                src={user.picture}
-                alt="Profile"
-                className="w-16 h-16 rounded-full"
-              />
-              <div>
-                <p className="text-lg font-semibold text-gray-700">
-                  {user.name}
-                </p>
-                <p className="text-sm text-gray-600">{user.email}</p>
+          <div className="bg-gray-100 p-6 md:p-8 rounded-lg shadow-lg mb-8 flex justify-between items-center">
+            <div>
+              <h3 className="text-xl font-semibold mb-4 text-gray-700">
+                اطلاعات کاربر
+              </h3>
+              <div className="flex items-center space-x-4">
+                <img
+                  src={user.picture}
+                  alt="Profile"
+                  className="w-16 h-16 rounded-full"
+                />
+                <div>
+                  <p className="text-lg font-semibold text-gray-700">
+                    {user.name}
+                  </p>
+                  <p className="text-sm text-gray-600">{user.email}</p>
+                </div>
               </div>
-            </div>
+            </div>{" "}
+            <button
+              onClick={handleLogout}
+              className="h-fit bg-red-600 text-white p-2 rounded-lg hover:bg-red-700 transition duration-300"
+            >
+              خروج
+            </button>
           </div>
         )}
 

@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        "service_sij9hag",
+        "template_v3rjr84",
+        formData,
+        "Ufc6wG8fADGYUCvLV"
+      )
+      .then(
+        () => {
+          setStatus("پیام موفقانه ارسال شد");
+          setFormData({ name: "", email: "", message: "" });
+        },
+        () => {
+          setStatus("خطا در ارسال پیام");
+        }
+      );
+    setTimeout(() => {
+      setStatus("");
+    }, 5000);
+  };
+
   return (
     <section className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -13,7 +45,7 @@ function ContactPage() {
             <h3 className="text-xl font-semibold mb-4 text-gray-700">
               فورم تماس
             </h3>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -28,6 +60,10 @@ function ContactPage() {
                   className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                   placeholder="نام خود را وارد کنید"
                   required
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -44,6 +80,10 @@ function ContactPage() {
                   className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                   placeholder="ایمیل خود را وارد کنید"
                   required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -60,6 +100,10 @@ function ContactPage() {
                   className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                   placeholder="پیام خود را بنویسید..."
                   required
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                 ></textarea>
               </div>
               <div>
@@ -142,6 +186,22 @@ function ContactPage() {
                 </li>
               </ul>
             </div>
+          </div>
+          <div
+            className={` ${
+              status === "پیام موفقانه ارسال شد"
+                ? "flex bg-green-100 text-green-800 p-2 rounded-lg   items-center space-x-2"
+                : status === "خطا در ارسال پیام"
+                ? " flex bg-red-100 text-red-800 p-2 rounded-lg   items-center space-x-2 "
+                : "hidden"
+            }`}
+          >
+            {status === "پیام موفقانه ارسال شد" ? (
+              <FaCheckCircle className="text-lg" />
+            ) : (
+              <FaTimesCircle className="text-lg" />
+            )}
+            <p className="text-sm font-medium">{status}</p>
           </div>
         </div>
       </div>

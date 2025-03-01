@@ -8,20 +8,20 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { ShoppingCart, AccountCircle, Menu } from "@mui/icons-material";
+import { ShoppingCart, Menu } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const cartQuantity = useSelector((state) => state.cart.cartItems.length);
-  const user = useSelector((state) => state.user.user)
+  const user = useSelector((state) => state.user.user);
 
   const toggleDrawer = (open) => {
     setDrawerOpen(open);
   };
 
   return (
-    <header className="bg-white shadow-md py-2">
+    <header className="bg-white shadow-md py-2 sticky top-0 z-50">
       <Box className="flex justify-between items-center max-w-screen-xl mx-auto px-4">
         <div className="text-2xl font-bold text-green-600">
           <img
@@ -185,7 +185,7 @@ function Header() {
             {user ? (
               <a href="/account">
                 <img className="w-10 h-10 rounded-full" src={user.picture} />
-                </a>
+              </a>
             ) : (
               <a href="/login">ورود</a>
             )}
