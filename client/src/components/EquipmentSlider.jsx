@@ -97,7 +97,7 @@ const EquipmentSlider = ({ category, title }) => {
                     onClick={() => handleAddToCart(item)}
                     className="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300"
                   >
-                    افزودن به سبد خرید
+                    خرید
                   </button>
                 </div>
               </div>

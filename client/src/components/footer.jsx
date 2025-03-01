@@ -18,12 +18,11 @@ function Footer() {
       <div className="contact-info mt-8 px-4">
         <h3 className="text-xl font-semibold">اطلاعات تماس</h3>
         <p className="mt-2">آدرس: کارته نو ایستگاه سابقه کابل افغانستان</p>
-        <p className="mt-2">تلفن: 93784966018</p>
+        <p className="mt-2">شماره تلیفون: 93784966018</p>
 
         <p className="mt-2">ایمیل: afgsuliman50@gmail.com</p>
         <p className="mt-2">
-          روز های کاری: شنبه تا پنجشنبه، از ساعت 8 صبح تا 4 عصر (جمعه‌ها تعطیل
-          است)
+          روز های کاری: شنبه تا پنجشنبه، از ساعت 8 صبح تا 4 عصر (جمعه‌ها بسته است)
         </p>
       </div>
 

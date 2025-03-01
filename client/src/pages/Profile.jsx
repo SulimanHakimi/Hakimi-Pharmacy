@@ -50,7 +50,7 @@ function ProfilePage() {
 
     const MAX_FILE_SIZE = 3 * 1024 * 1024;
     if (file.size > MAX_FILE_SIZE) {
-      alert("حجم فایل باید کمتر از ۳ مگابایت باشد!");
+      alert("حجم فایل باید کمتر از ۳ ام بی باشد!");
       return;
     }
 
@@ -86,7 +86,7 @@ function ProfilePage() {
     <section className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8 text-gray-800">
-          پروفایل کاربری
+          پروفایل{" "}
         </h2>
 
         {user && (

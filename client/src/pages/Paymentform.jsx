@@ -34,9 +34,6 @@ function PaymentPage() {
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
-    if(!user){
-      // navigate("/login");
-    }
     setIsSubmitting(true);
 
     try {
@@ -155,7 +152,7 @@ function PaymentPage() {
                     name="street"
                     value={address.street}
                     onChange={handleAddressChange}
-                    placeholder="آدرس خیابان"
+                    placeholder="آدرس سرک"
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                     required
                   />
@@ -289,7 +286,7 @@ function PaymentPage() {
                       className="w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? "در حال پردازش..." : "پرداخت"}
+                      {isSubmitting ? "در حال اجرا..." : "پرداخت"}
                     </button>
                   </div>
                 </form>
@@ -305,7 +302,7 @@ function PaymentPage() {
                     className="w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "در حال پردازش..." : "ثبت سفارش"}
+                    {isSubmitting ? "در حال اجرا..." : "ثبت سفارش"}
                   </button>
                 </div>
               )}

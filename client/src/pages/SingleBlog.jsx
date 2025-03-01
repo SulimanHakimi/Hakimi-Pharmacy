@@ -30,7 +30,7 @@ function SingleBlogPage() {
     <section className="py-12 md:py-16 bg-white">
       <Helmet>
         <title>
-          {post.title ? `${post.title} | دواخانه حکیمی` : "داروخانه آنلاین"}
+          {post.title ? `${post.title} | دواخانه حکیمی` : "دوا خانه آنلاین"}
         </title>
         <meta name="description" content={post.description} />
         <meta property="og:title" content={post.title} />

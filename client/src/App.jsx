@@ -14,6 +14,8 @@ import PaymentPage from './pages/Paymentform';
 import CartPage from './pages/Cart';
 import SuccessPage from './pages/Success';
 import LoginSuccess from './pages/LoginSuccess';
+import NotFoundPage from './pages/NotFound';
+import CategoryPage from './pages/CatagoryShop';
 
 
 export default function App() {
@@ -26,6 +28,7 @@ export default function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/login/success' element={<LoginSuccess />} />
                 <Route path='/shop' element={<ShopPage />} />
+                <Route path='/shop/:cat' element={<CategoryPage />} />
                 <Route path='/blog' element={<BlogPage />} />
                 <Route path='/blog/post/:id' element={<SingleBlogPage    />} />
                 <Route path='/about' element={<About />} />
@@ -33,7 +36,7 @@ export default function App() {
                 <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/success/:id" element={<SuccessPage />} />
-                <Route path='/*' element={<Home />} />
+                <Route path='/*' element={<NotFoundPage />} />
             </Routes>
             <Footer/>
         </Router>

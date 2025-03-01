@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
+
 import {
   Box,
   IconButton,
@@ -59,24 +61,36 @@ function Header() {
                 </a>
                 <ul className="absolute left-0 hidden group-hover:block bg-white shadow-md rounded-lg py-4 px-6 space-y-4 mt-2">
                   <li>
-                    <a href="#" className="text-gray-700 hover:text-green-600">
+                    <Link
+                      to="/shop/general-medicines"
+                      className="text-gray-700 hover:text-green-600"
+                    >
                       داروهای عمومی
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-700 hover:text-green-600">
+                    <Link
+                      to="/shop/herbal-medicines"
+                      className="text-gray-700 hover:text-green-600"
+                    >
                       داروهای گیاهی
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-700 hover:text-green-600">
+                    <Link
+                      to="/shop/skincare-products"
+                      className="text-gray-700 hover:text-green-600"
+                    >
                       محصولات پوستی
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="text-gray-700 hover:text-green-600">
+                    <Link
+                      to="/shop/nutritional-supplements"
+                      className="text-gray-700 hover:text-green-600"
+                    >
                       مکمل‌های غذایی
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </ListItemText>

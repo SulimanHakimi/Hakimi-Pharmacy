@@ -28,7 +28,7 @@ function Login() {
         }}
       >
         <Typography variant="h3" sx={{ marginBottom: 3 }}>
-          به فروشگاه دوا خوش آمدید
+          به دواخانه حکیمی خوش آمدید
         </Typography>
         <Typography variant="body1" sx={{ marginBottom: 3 }}>
           لطفاً با استفاده از حساب گوگل خود وارد شوید تا ادامه دهید
