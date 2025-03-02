@@ -16,7 +16,7 @@ const cors = require("cors");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: ["http://localhost:5173","http://localhost:5174"], credentials: true }));
+app.use(cors({ origin: ["http://localhost:5173","http://localhost:5174","https://hakimi-pharmacy-client.vercel.app"], credentials: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
