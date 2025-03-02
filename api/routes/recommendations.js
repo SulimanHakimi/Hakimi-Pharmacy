@@ -1,16 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const Recommendation = require("../models/Recommendations");
-const { verifyTokenAndAdmin, verifyTokenAndAuthorization } = require("./middleware");
+const {
+  verifyTokenAndAdmin,
+  verifyTokenAndAuthorization,
+} = require("./middleware");
 
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
+router.post("/create", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const recommendation = await Recommendation.find();
-    res.status(200).json(recommendation);
+    const { medicine, dosage, doctor, user } = req.body;
+
+    const newRecommendation = new Recommendation({
+      medicine,
+      dosage,
+      doctor,
+      user,
+    });
+
+    const savedRecommendation = await newRecommendation.save();
+    res.status(201).json(savedRecommendation);
   } catch (err) {
     res
       .status(500)
-      .json({ message: "Error retrieving recommendation", error: err });
+      .json({ message: "Error creating recommendation", error: err });
   }
 });
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
@@ -24,7 +36,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-router.get("/:id",verifyTokenAndAuthorization, async (req, res) => {
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const recommendation = await Recommendation.find({ user: req.params.id });
 
@@ -33,9 +45,7 @@ router.get("/:id",verifyTokenAndAuthorization, async (req, res) => {
     }
     res.status(200).json(recommendation);
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error retrieving recommendation"});
+    res.status(500).json({ message: "Error retrieving recommendation" });
   }
 });
 
