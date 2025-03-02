@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
 import Header from './components/header';
@@ -16,6 +15,7 @@ import SuccessPage from './pages/Success';
 import LoginSuccess from './pages/LoginSuccess';
 import NotFoundPage from './pages/NotFound';
 import CategoryPage from './pages/CatagoryShop';
+import { Home } from '@mui/icons-material';
 
 
 export default function App() {
