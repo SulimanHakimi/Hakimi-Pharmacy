@@ -13,7 +13,7 @@ function Login() {
     }
   }, [user, navigate]);
   const handleLogin = () => {
-    window.location.href = `http://localhost:5000/api/auth/google`;
+    window.location.href = `https://hakimi-pharmacy-api.vercel.app/api/auth/google`;
   };
   return (
     <Container maxWidth="sm">
