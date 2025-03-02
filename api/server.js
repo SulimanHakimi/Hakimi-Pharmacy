@@ -11,12 +11,23 @@ const blogRoutes = require("./routes/blog");
 const recommendationRoutes = require("./routes/recommendations");
 const prescriptionRoutes = require("./routes/prescription");
 
-
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: ["http://localhost:5173","http://localhost:5174","https://hakimi-pharmacy-client.vercel.app"], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://hakimi-pharmacy-client.vercel.app",
+      "https://hakimi-pharmacy-api.vercel.app",
+    ],
+    credentials: true,
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -33,7 +44,7 @@ app.use(passport.session());
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => console.log("DB connection is successful"))
   .catch((err) => {
@@ -48,6 +59,6 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/recommendations", recommendationRoutes);
 app.use("/api/prescription", prescriptionRoutes);
 
-
-
-app.listen(process.env.PORT || 5000, () => console.log("API running on port 5000"));
+app.listen(process.env.PORT || 5000, () =>
+  console.log("API running on port 5000")
+);
