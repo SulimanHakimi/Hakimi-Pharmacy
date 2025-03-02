@@ -10,7 +10,7 @@ const cartRoutes = require("./routes/cart");
 const blogRoutes = require("./routes/blog");
 const recommendationRoutes = require("./routes/recommendations");
 const prescriptionRoutes = require("./routes/prescription");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 
 const cors = require("cors");
 require("dotenv").config();
@@ -28,18 +28,20 @@ app.use(express.json());
 // );
 app.options("*", cors());
 
-app.use(session({
-  secret: 'your_secret_key',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URI,
       ttl: 14 * 24 * 60 * 60,
-  }),
-  cookie: {
-      maxAge: 1000 * 60 * 60 * 24
-  }
-}));
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
