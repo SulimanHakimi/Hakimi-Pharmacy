@@ -28,6 +28,8 @@ app.use(
     allowedHeaders: "Content-Type,Authorization",
   })
 );
+app.options("*", cors());
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
