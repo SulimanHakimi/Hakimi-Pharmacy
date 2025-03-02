@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://hakimi-pharmacy-api.vercel.app";
+const BASE_URL = "https://hakimi-pharmacy-api.vercel.app/api";
 
 const getHeaders = () => {
   const token = localStorage.getItem("token");
