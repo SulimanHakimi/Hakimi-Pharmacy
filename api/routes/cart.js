@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
     }
     res.status(200).json(cart);
   } catch (err) {
-    res.status(500).json({ message: "Error retrieving cart", error: err });
+    res.status(500).json({ message: "Error retrieving cart" });
   }
 });
 

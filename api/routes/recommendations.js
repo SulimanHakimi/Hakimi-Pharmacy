@@ -24,7 +24,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/:id",verifyTokenAndAuthorization, async (req, res) => {
   try {
     const recommendation = await Recommendation.find({ user: req.params.id });
 
@@ -35,7 +35,7 @@ router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .json({ message: "Error retrieving recommendation", error: err });
+      .json({ message: "Error retrieving recommendation"});
   }
 });
 

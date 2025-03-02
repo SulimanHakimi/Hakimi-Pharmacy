@@ -16,12 +16,11 @@ import { useSelector } from "react-redux";
 function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const cartQuantity = useSelector((state) => state.cart.cartItems.length);
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state?.user?.user?.user);
 
   const toggleDrawer = (open) => {
     setDrawerOpen(open);
   };
-
   return (
     <header className="bg-white shadow-md py-2 sticky top-0 z-50">
       <Box className="flex justify-between items-center max-w-screen-xl mx-auto px-4">
@@ -33,18 +32,6 @@ function Header() {
           />
         </div>
 
-        <IconButton
-          onClick={() => toggleDrawer(true)}
-          sx={{
-            display: { sm: "flex", sx: "none", md: "none" },
-            color: "black",
-            "&:hover": {
-              color: "green.600",
-            },
-          }}
-        >
-          <Menu />
-        </IconButton>
         <Box className="hidden md:flex">
           <List className="flex space-x-6">
             <ListItem>
@@ -122,7 +109,7 @@ function Header() {
           </List>
         </Box>
 
-        <Box className="hidden md:flex space-x-4 items-center">
+        <Box className="flex space-x-4 items-center">
           <a href="/cart" className="relative text-gray-700">
             <ShoppingCart />
             {cartQuantity > 0 && (
@@ -140,6 +127,19 @@ function Header() {
               <a href="/login">ورود</a>
             )}
           </ListItemText>
+          <div className="md:hidden flex">
+            <IconButton
+              onClick={() => toggleDrawer(true)}
+              sx={{
+                color: "black",
+                "&:hover": {
+                  color: "green.600",
+                },
+              }}
+            >
+              <Menu />
+            </IconButton>
+          </div>
         </Box>
       </Box>
 
@@ -186,25 +186,6 @@ function Header() {
             </ListItemText>
           </ListItem>
         </List>
-        <Box className="flex flex-col items-end px-4">
-          <a href="/cart" className="relative text-gray-700">
-            <ShoppingCart />
-            {cartQuantity > 0 && (
-              <span className="absolute top-[-5px] right-[-5px] bg-red-600 text-white rounded-full px-1 text-xs font-bold">
-                {cartQuantity}
-              </span>
-            )}
-          </a>
-          <ListItemText className="text-gray-700 cursor-pointer">
-            {user ? (
-              <a href="/account">
-                <img className="w-10 h-10 rounded-full" src={user.picture} />
-              </a>
-            ) : (
-              <a href="/login">ورود</a>
-            )}
-          </ListItemText>
-        </Box>
       </Drawer>
     </header>
   );

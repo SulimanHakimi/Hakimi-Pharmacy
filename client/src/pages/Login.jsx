@@ -13,7 +13,7 @@ function Login() {
     }
   }, [user, navigate]);
   const handleLogin = () => {
-    window.location.href = `https://hakimi-pharmacy-api.vercel.app/api/auth/google`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   };
   return (
     <Container maxWidth="sm">

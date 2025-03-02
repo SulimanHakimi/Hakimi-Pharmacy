@@ -18,7 +18,7 @@ function PaymentPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const user = useSelector((state) => state.user.user)
+  const user = useSelector((state) => state?.user?.user?.user)
   const navigate = useNavigate();
 
   useEffect(() => {

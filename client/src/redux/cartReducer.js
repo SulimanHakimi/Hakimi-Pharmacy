@@ -58,6 +58,7 @@ const cartReducer = (state = initialState, action) => {
         cartItems: updatedCart,
       };
     case CLEAR_CART:
+      localStorage.removeItem("cart", JSON.stringify(updatedCart));
       return {
         ...state,
         cartItems: [],

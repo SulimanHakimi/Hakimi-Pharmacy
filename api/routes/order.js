@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
     console.error("Error creating order:", err);
     res
       .status(500)
-      .json({ message: "Error creating order", error: err.message });
+      .json({ message: "Error creating order" });
   }
 });
 router.get("/", verifyTokenAndAuthorization, async (req, res) => {
@@ -53,11 +53,11 @@ router.get("/", verifyTokenAndAuthorization, async (req, res) => {
       .populate("items.product");
     res.status(200).json({ orders });
   } catch (err) {
-    res.status(500).json({ message: "Error fetching orders", error: err });
+    res.status(500).json({ message: "Error fetching orders" });
   }
 });
 
-router.get("/details/:id", verifyTokenAndAdmin, async (req, res) => {
+router.get("/details/:id", async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (!order) {
@@ -65,10 +65,10 @@ router.get("/details/:id", verifyTokenAndAdmin, async (req, res) => {
     }
     res.status(200).json(order);
   } catch (err) {
-    res.status(500).json({ message: "Error fetching order", error: err });
+    res.status(500).json({ message: "Error fetching order"});
   }
 });
-router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/:id",verifyTokenAndAuthorization, async (req, res) => {
   try {
     const orders = await Order.find({ user: req.params.id });
 
@@ -78,7 +78,7 @@ router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
     res.status(200).json(orders);
   } catch (err) {
-    res.status(500).json({ message: "Error fetching orders", error: err });
+    res.status(500).json({ message: "Error fetching orders" });
   }
 });
 

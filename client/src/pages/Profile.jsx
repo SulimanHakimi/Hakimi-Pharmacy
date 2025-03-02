@@ -6,27 +6,21 @@ import { logoutUser } from "../redux/userActions";
 function ProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user.user);
   const [prescriptions, setPrescriptions] = useState([]);
   const [doctorRecommendations, setDoctorRecommendations] = useState([]);
   const [orders, setOrders] = useState([]);
   const token = localStorage.getItem("token");
-
   useEffect(() => {
     if (!user && !token) {
       navigate("/login");
     }
   }, [user, token]);
-
   useEffect(() => {
     const fetchUserOrders = () => {
-      getRequest(`orders/${user._id}`)
-        .then((ordersData) => {
-          setOrders(ordersData);
-        })
-        .catch((error) => {
-          console.error("Error fetching orders:", error);
-        });
+      getRequest(`orders/${user._id}`).then((ordersData) => {
+        setOrders(ordersData);
+      });
     };
 
     if (user && user._id) {

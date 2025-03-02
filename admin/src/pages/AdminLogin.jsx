@@ -35,7 +35,6 @@ function Login() {
 
     try {
       const response = await postRequest("auth/login", { emailPass });
-      console.log(response)
       dispatch(setUser(response.user, response.token));
 
       if (response.user) {

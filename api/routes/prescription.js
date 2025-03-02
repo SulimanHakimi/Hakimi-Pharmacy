@@ -17,7 +17,7 @@ router.post("/upload", verifyTokenAndAuthorization, async (req, res) => {
     await newPrescription.save();
     res.status(201).json(newPrescription);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "order not saved" });
   }
 });
 
@@ -29,7 +29,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/:id",verifyTokenAndAuthorization, async (req, res) => {
   try {
     const prescription = await Prescription.find({ user: req.params.id });
 
@@ -71,7 +71,7 @@ router.put("/:id/status", verifyTokenAndAuthorization, async (req, res) => {
     }
     res.status(200).json(prescription);
   } catch (err) {
-    res.status(500).json({ message: "Error updating status", error: err });
+    res.status(500).json({ message: "Error updating status" });
   }
 });
 module.exports = router;

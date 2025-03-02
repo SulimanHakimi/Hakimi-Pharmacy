@@ -1,13 +1,12 @@
 import axios from "axios";
 
-const BASE_URL = "https://hakimi-pharmacy-api.vercel.app/api";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const getHeaders = () => {
   const token = localStorage.getItem("token");
   return {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
     },
   };
 };
@@ -15,6 +14,7 @@ const getHeaders = () => {
 export const getRequest = async (endpoint) => {
   try {
     const response = await axios.get(`${BASE_URL}/${endpoint}`, {
+      ...getHeaders(),
       withCredentials: true,
     });
     return response.data;
@@ -26,7 +26,8 @@ export const getRequest = async (endpoint) => {
 
 export const postRequest = async (endpoint, data) => {
   try {
-    const response = await axios.post(`${BASE_URL}/${endpoint}`, data,{
+    const response = await axios.post(`${BASE_URL}/${endpoint}`, data, {
+      ...getHeaders(),
       withCredentials: true,
     });
     return response.data;
