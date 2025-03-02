@@ -2,7 +2,7 @@ import Category from "../components/category";
 import Hero from "../components/hero";
 import EquipmentSlider from "../components/EquipmentSlider";
 import BlogSection from "../components/blog";
-import CustomerReviews from "../components/CustomerReviews";
+import CustomerReviews from "../components/customerReviews";
 import { Helmet } from "react-helmet";
 
 const HomePage = () => {
