@@ -15,7 +15,7 @@ import SuccessPage from './pages/Success';
 import LoginSuccess from './pages/LoginSuccess';
 import NotFoundPage from './pages/NotFound';
 import CategoryPage from './pages/CatagoryShop';
-import { Home } from '@mui/icons-material';
+import HomePage from './pages/Home';
 
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
         <Router>
             <Header/>
             <Routes>
-                <Route path='/' element={<Home />} />
+                <Route path='/' element={<HomePage />} />
                 <Route path='/account' element={<ProfilePage />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/login/success' element={<LoginSuccess />} />
