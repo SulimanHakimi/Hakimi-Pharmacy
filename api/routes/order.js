@@ -1,5 +1,9 @@
 const express = require("express");
 const Order = require("../models/Order");
+const {
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./middleware");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -42,7 +46,7 @@ router.post("/", async (req, res) => {
       .json({ message: "Error creating order", error: err.message });
   }
 });
-router.get("/", async (req, res) => {
+router.get("/", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const orders = await Order.find()
       .populate("user")
@@ -53,7 +57,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/details/:id", async (req, res) => {
+router.get("/details/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (!order) {
@@ -64,7 +68,7 @@ router.get("/details/:id", async (req, res) => {
     res.status(500).json({ message: "Error fetching order", error: err });
   }
 });
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const orders = await Order.find({ user: req.params.id });
 
@@ -78,7 +82,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
@@ -94,7 +98,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const deletedOrder = await Order.findByIdAndDelete(req.params.id);
     if (!deletedOrder) {

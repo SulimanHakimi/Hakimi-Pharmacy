@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { deleteRequest, getRequest } from "../RequestMethods";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -7,8 +7,8 @@ const AdminUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users");
-        setUsers(response.data);
+        const response = await getRequest("users");
+        setUsers(response);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -18,7 +18,7 @@ const AdminUsers = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`);
+      await deleteRequest(`users/${id}`);
       setUsers(users.filter((user) => user._id !== id));
     } catch (error) {
       console.error("Error deleting user:", error);

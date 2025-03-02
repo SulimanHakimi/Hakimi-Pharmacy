@@ -8,12 +8,14 @@ const LoginSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const token = queryParams.get("token");
     const fetchUserData = async () => {
       try {
         const response = await getRequest("auth/user");
-        dispatch(setUser(response));
+        dispatch(setUser(response, token));
         setTimeout(() => {
-            navigate("/account");
+          navigate("/account");
         }, 2000);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
@@ -26,7 +28,7 @@ const LoginSuccess = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <h1 className="text-2xl font-bold mb-4">ورود موفقیت‌آمیز بود!</h1>
+      <h1 className="text-2xl font-bold mb-4">ورود موفقیت‌آمیز بود!</h1>
     </div>
   );
 };

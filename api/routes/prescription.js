@@ -1,8 +1,12 @@
 const express = require("express");
 const Prescription = require("../models/Prescription");
+const {
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./middleware");
 const router = express.Router();
 
-router.post("/upload", async (req, res) => {
+router.post("/upload", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const { file, userId } = req.body;
 
@@ -17,7 +21,7 @@ router.post("/upload", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const prescriptions = await Prescription.find().sort({ createdAt: -1 });
     res.status(200).json(prescriptions);
@@ -25,7 +29,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const prescription = await Prescription.find({ user: req.params.id });
 
@@ -39,7 +43,7 @@ router.get("/:id", async (req, res) => {
       .json({ message: "Error retrieving prescription", error: err });
   }
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const prescription = await Prescription.findByIdAndDelete(req.params.id);
 
@@ -54,7 +58,7 @@ router.delete("/:id", async (req, res) => {
       .json({ message: "Error deleting prescription", error: err });
   }
 });
-router.put("/:id/status", async (req, res) => {
+router.put("/:id/status", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const { status } = req.body;
     const prescription = await Prescription.findByIdAndUpdate(

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+  putRequest,
+} from "../RequestMethods";
 
 const AdminBlog = () => {
   const [posts, setPosts] = useState([]);
@@ -16,8 +21,8 @@ const AdminBlog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/blogs");
-        setPosts(response.data);
+        const response = await getRequest("blogs");
+        setPosts(response);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -34,16 +39,13 @@ const AdminBlog = () => {
     e.preventDefault();
     try {
       if (editPostId) {
-        await axios.put(
-          `http://localhost:5000/api/blogs/${editPostId}`,
-          formData
-        );
+        await putRequest(`blogs/${editPostId}`, formData);
         setEditPostId(null);
       } else {
-        await axios.post("http://localhost:5000/api/blogs", formData);
+        await postRequest("blogs", formData);
       }
-      const response = await axios.get("http://localhost:5000/api/blogs");
-      setPosts(response.data);
+      const response = await getRequest("blogs");
+      setPosts(response);
       setFormData({
         name: "",
         title: "",
@@ -64,9 +66,9 @@ const AdminBlog = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/blogs/${id}`);
-      const response = await axios.get("http://localhost:5000/api/blogs");
-      setPosts(response.data);
+      await deleteRequest(`blogs/${id}`);
+      const response = await getRequest("blogs");
+      setPosts(response);
     } catch (error) {
       console.error("Error deleting post:", error);
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { deleteRequest, getRequest } from "../RequestMethods";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -7,8 +7,8 @@ const AdminProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
-        setProducts(response.data);
+        const response = await getRequest("products");
+        setProducts(response);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -18,7 +18,7 @@ const AdminProducts = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await deleteRequest(`products/${id}`);
       setProducts(products.filter((product) => product._id !== id));
     } catch (error) {
       console.error("Error deleting product:", error);

@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Cart = require("../models/Cart");
+const { verifyTokenAndAdmin } = require("./middleware");
 
-router.get("/", async (req, res) => {
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const carts = await Cart.find();
     res.status(200).json(carts);
@@ -23,7 +24,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const cart = await Cart.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -37,7 +38,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const cart = await Cart.findByIdAndDelete(req.params.id);
     if (!cart) {

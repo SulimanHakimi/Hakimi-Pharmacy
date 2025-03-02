@@ -3,13 +3,21 @@ import { Link, Outlet } from "react-router-dom";
 import {
   FaHome,
   FaUser,
-  FaPills,
   FaBox,
   FaFileMedical,
   FaShoppingCart,
+  FaBloggerB
 } from "react-icons/fa";
+import { LuLogIn } from "react-icons/lu";
+import { logoutUser } from "../redux/userActions";
+import { useDispatch } from "react-redux";
 
-const AdminHome = () => {
+const SideBar = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
   return (
     <div className="flex min-h-screen bg-gray-100">
       <div className="w-64 bg-white shadow-md">
@@ -49,7 +57,7 @@ const AdminHome = () => {
             to="/posts"
             className="flex items-center p-3 text-gray-700 hover:bg-gray-200"
           >
-            <FaFileMedical className="mr-2" />
+            <FaBloggerB  className="mr-2" />
             Posts
           </Link>
           <Link
@@ -59,14 +67,21 @@ const AdminHome = () => {
             <FaFileMedical className="mr-2" />
             Prescriptions
           </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center p-3 text-gray-700 hover:bg-gray-200"
+          >
+            <LuLogIn  className="mr-2" />
+            Logout
+          </button>
         </nav>
       </div>
 
       <div className="flex-1 p-6">
-        <Outlet /> 
+        <Outlet />
       </div>
     </div>
   );
 };
 
-export default AdminHome;
+export default SideBar;

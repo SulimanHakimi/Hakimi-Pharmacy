@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Blog = require("../models/Blog");
+const { verifyTokenAndAdmin } = require("./middleware");
 
 router.get("/", async (req, res) => {
   try {
@@ -23,7 +24,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -37,7 +38,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const blog = await Blog.findByIdAndDelete(req.params.id);
     if (!blog) {

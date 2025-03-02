@@ -10,12 +10,13 @@ function ProfilePage() {
   const [prescriptions, setPrescriptions] = useState([]);
   const [doctorRecommendations, setDoctorRecommendations] = useState([]);
   const [orders, setOrders] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !token) {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user, token]);
 
   useEffect(() => {
     const fetchUserOrders = () => {

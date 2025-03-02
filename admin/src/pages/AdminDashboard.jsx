@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getRequest } from "../RequestMethods";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState(0);
@@ -12,17 +13,18 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [usersResponse, postsResponse, ordersResponse, productsResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/users"),
-          axios.get("http://localhost:5000/api/blogs"),
-          axios.get("http://localhost:5000/api/orders"),
-          axios.get("http://localhost:5000/api/products"),
-        ]);
+        const [usersResponse, postsResponse, ordersResponse, productsResponse] =
+          await Promise.all([
+            getRequest("users"),
+            getRequest("blogs"),
+            getRequest("orders"),
+            getRequest("products"),
+          ]);
 
-        setUsers(usersResponse.data.length);
-        setPost(postsResponse.data.length);
-        setOrders(ordersResponse.data.orders.length);
-        setProducts(productsResponse.data.length);
+        setUsers(usersResponse.length);
+        setPost(postsResponse.length);
+        setOrders(ordersResponse.orders.length);
+        setProducts(productsResponse.length);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to fetch data");
@@ -51,7 +53,9 @@ const AdminDashboard = () => {
           <p className="text-3xl font-bold text-blue-600">{users}</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-lg font-semibold text-gray-800">Total Medicines</h2>
+          <h2 className="text-lg font-semibold text-gray-800">
+            Total Medicines
+          </h2>
           <p className="text-3xl font-bold text-green-600">{products}</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-md">

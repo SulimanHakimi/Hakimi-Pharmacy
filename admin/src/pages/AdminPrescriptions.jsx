@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { deleteRequest, getRequest, putRequest } from "../RequestMethods";
 
 const AdminPrescriptions = () => {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -7,10 +8,8 @@ const AdminPrescriptions = () => {
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/prescription"
-        );
-        setPrescriptions(response.data);
+        const response = await getRequest("prescription");
+        setPrescriptions(response);
       } catch (error) {
         console.error("Error fetching prescriptions:", error);
       }
@@ -20,7 +19,8 @@ const AdminPrescriptions = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/prescription/${id}`);
+      await deleteRequest(`prescription/${id}`);
+
       setPrescriptions(
         prescriptions.filter((prescription) => prescription._id !== id)
       );
@@ -31,13 +31,12 @@ const AdminPrescriptions = () => {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/prescription/${id}/status`,
-        { status }
-      );
+      const response = await putRequest(`prescription/${id}/status`, {
+        status,
+      });
       setPrescriptions(
         prescriptions.map((prescription) =>
-          prescription._id === id ? response.data : prescription
+          prescription._id === id ? response : prescription
         )
       );
     } catch (error) {

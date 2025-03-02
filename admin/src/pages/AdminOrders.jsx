@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getRequest, putRequest, deleteRequest } from "../RequestMethods";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -8,8 +8,8 @@ const AdminOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/orders");
-        setOrders(response.data.orders);
+        const response = await getRequest("orders");
+        setOrders(response.orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
@@ -19,13 +19,10 @@ const AdminOrders = () => {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/orders/${id}`,
-        { status }
-      );
+      const response = await putRequest(`orders/${id}`, { status });
       setOrders(
         orders.map((order) =>
-          order._id === id ? { ...order, status: response.data.status } : order
+          order._id === id ? { ...order, status: response.status } : order
         )
       );
     } catch (error) {
@@ -35,7 +32,8 @@ const AdminOrders = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/orders/${id}`);
+      await deleteRequest(`orders/${id}`);
+
       setOrders(orders.filter((order) => order._id !== id));
     } catch (error) {
       console.error("Error deleting order:", error);
@@ -44,10 +42,8 @@ const AdminOrders = () => {
 
   const viewDetails = async (id) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/orders/${id}`
-      );
-      setSelectedOrder(response.data);
+      const response = await getRequest(`orders/details/${id}`);
+      setSelectedOrder(response);
     } catch (error) {
       console.error("Error fetching order details:", error);
     }

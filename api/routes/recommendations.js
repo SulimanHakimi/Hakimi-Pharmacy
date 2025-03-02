@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Recommendation = require("../models/Recommendations");
+const { verifyTokenAndAdmin, verifyTokenAndAuthorization } = require("./middleware");
 
-router.post("/", async (req, res) => {
+router.post("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const recommendation = await Recommendation.find();
     res.status(200).json(recommendation);
@@ -12,7 +13,7 @@ router.post("/", async (req, res) => {
       .json({ message: "Error retrieving recommendation", error: err });
   }
 });
-router.get("/", async (req, res) => {
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const recommendations = await Recommendation.find();
     res.status(200).json(recommendations);
@@ -23,7 +24,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const recommendation = await Recommendation.find({ user: req.params.id });
 
@@ -38,7 +39,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const recommendation = await Recommendation.findByIdAndUpdate(
       req.params.id,
@@ -58,7 +59,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const recommendation = await Recommendation.findByIdAndDelete(
       req.params.id
