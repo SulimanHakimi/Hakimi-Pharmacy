@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  deleteRequest,
-  getRequest,
-  postRequest,
-  putRequest,
-} from "../RequestMethods";
+import { deleteRequest, getRequest, postRequest, putRequest } from "../RequestMethods";
 
 const AdminBlog = () => {
   const [posts, setPosts] = useState([]);
@@ -78,6 +73,7 @@ const AdminBlog = () => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">مدیریت وبلاگ</h1>
 
+      {/* Form for creating/editing posts */}
       <form
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-lg shadow-md mb-6"
@@ -193,14 +189,15 @@ const AdminBlog = () => {
         </button>
       </form>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      {/* Table for larger screens */}
+      <div className="hidden lg:block bg-white p-6 rounded-lg shadow-md">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left">عنوان</th>
-              <th className="p-3 text-left">نویسنده</th>
-              <th className="p-3 text-left">تاریخ</th>
-              <th className="p-3 text-left">عملیات</th>
+              <th className="p-3">عنوان</th>
+              <th className="p-3 ">نویسنده</th>
+              <th className="p-3 ">تاریخ</th>
+              <th className="p-3 ">عملیات</th>
             </tr>
           </thead>
           <tbody>
@@ -227,6 +224,42 @@ const AdminBlog = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Card layout for smaller screens */}
+      <div className="lg:hidden space-y-4">
+        {posts.map((post) => (
+          <div
+            key={post._id}
+            className="bg-white p-4 rounded-lg shadow-md"
+          >
+            <div className="space-y-2">
+              <p>
+                <span className="font-semibold">عنوان:</span> {post.title}
+              </p>
+              <p>
+                <span className="font-semibold">نویسنده:</span> {post.author}
+              </p>
+              <p>
+                <span className="font-semibold">تاریخ:</span> {post.date}
+              </p>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => handleEdit(post)}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  ویرایش
+                </button>
+                <button
+                  onClick={() => handleDelete(post._id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  حذف
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

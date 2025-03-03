@@ -25,11 +25,13 @@ function Header() {
     <header className="bg-white shadow-md py-2 sticky top-0 z-50">
       <Box className="flex justify-between items-center max-w-screen-xl mx-auto px-4">
         <div className="text-2xl font-bold text-green-600">
-          <img
-            src={logo}
-            alt="Pharmacy Logo"
-            className="h-8 w-auto scale-160"
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Pharmacy Logo"
+              className="h-8 w-auto scale-160"
+            />
+          </Link>
         </div>
 
         <Box className="hidden md:flex">

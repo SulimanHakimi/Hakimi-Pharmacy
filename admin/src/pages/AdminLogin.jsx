@@ -45,8 +45,8 @@ function Login() {
     }));
   };
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="flex flex-col items-center justify-center h-screen text-center">
+    <div className="w-full flex justify-center items-center" >
+      <div className="flex px-5 flex-col items-center justify-center h-screen text-center lg:w-1/2 md:w-2/3">
         <h1 className="text-2xl">Login</h1>
 
         {error && (

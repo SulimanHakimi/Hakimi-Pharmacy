@@ -33,7 +33,6 @@ const AdminOrders = () => {
   const handleDelete = async (id) => {
     try {
       await deleteRequest(`orders/${id}`);
-
       setOrders(orders.filter((order) => order._id !== id));
     } catch (error) {
       console.error("Error deleting order:", error);
@@ -50,10 +49,10 @@ const AdminOrders = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-4">
       <h1 className="text-2xl font-bold mb-6">مدیریت سفارشات</h1>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="hidden lg:block w-full overflow-x-auto bg-white p-4 rounded-lg shadow-md">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
@@ -107,9 +106,67 @@ const AdminOrders = () => {
         </table>
       </div>
 
+      {/* Card layout for smaller screens */}
+      <div className="lg:hidden space-y-4">
+        {orders.map((order) => (
+          <div
+            key={order._id}
+            className="bg-white p-4 rounded-lg shadow-md"
+          >
+            <div className="space-y-2">
+              <p>
+                <span className="font-semibold">ایدی سفارش:</span> {order._id}
+              </p>
+              <p>
+                <span className="font-semibold">کاربر:</span>{" "}
+                {order.user?.name || "N/A"}
+              </p>
+              <p>
+                <span className="font-semibold">تعداد اقلام:</span>{" "}
+                {order.items.length}
+              </p>
+              <p>
+                <span className="font-semibold">مجموع قیمت:</span>{" "}
+                {order.totalPrice.toFixed(2)} AFN
+              </p>
+              <p>
+                <span className="font-semibold">وضعیت:</span>{" "}
+                <select
+                  value={order.status}
+                  onChange={(e) =>
+                    handleStatusUpdate(order._id, e.target.value)
+                  }
+                  className="p-2 border border-gray-300 rounded-lg"
+                >
+                  <option value="pending">در انتظار</option>
+                  <option value="processed">پردازش شده</option>
+                  <option value="shipped">ارسال شده</option>
+                  <option value="delivered">تحویل داده شده</option>
+                  <option value="cancelled">لغو شده</option>
+                </select>
+              </p>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => viewDetails(order._id)}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  جزئیات
+                </button>
+                <button
+                  onClick={() => handleDelete(order._id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  حذف
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
+          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl overflow-y-auto max-h-[90vh]">
             <h2 className="text-xl font-bold mb-4">جزئیات سفارش</h2>
             <div className="space-y-4">
               <div>
