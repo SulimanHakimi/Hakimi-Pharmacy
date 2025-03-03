@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -32,7 +32,9 @@ const AppContent = () => {
     "/success/:id",
   ];
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
   return (
     <>
       <Header />

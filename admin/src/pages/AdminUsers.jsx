@@ -26,16 +26,18 @@ const AdminUsers = () => {
   };
 
   return (
-    <div>
+    <div className="p-6">
       <h1 className="text-2xl font-bold mb-6">مدیریت کاربران</h1>
-      <div className="bg-white p-6 rounded-lg shadow-md">
+
+      {/* Table for larger screens */}
+      <div className="hidden lg:block bg-white p-6 rounded-lg shadow-md">
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left">نام</th>
-              <th className="p-3 text-left">ایمیل</th>
-              <th className="p-3 text-left">تصویر</th>
-              <th className="p-3 text-left">عملیات</th>
+              <th className="p-3 text-right">نام</th>
+              <th className="p-3 text-right">ایمیل</th>
+              <th className="p-3 text-right">تصویر</th>
+              <th className="p-3 text-right">عملیات</th>
             </tr>
           </thead>
           <tbody>
@@ -62,6 +64,34 @@ const AdminUsers = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Card layout for smaller screens */}
+      <div className="lg:hidden space-y-4">
+        {users.map((user) => (
+          <div
+            key={user._id}
+            className="bg-white p-4 rounded-lg shadow-md"
+          >
+            <div className="flex items-center space-x-4">
+              <img
+                src={user.picture}
+                alt={user.name}
+                className="w-10 h-10 rounded-full"
+              />
+              <div className="flex-1">
+                <p className="font-semibold">{user.name}</p>
+                <p className="text-sm text-gray-600">{user.email}</p>
+              </div>
+              <button
+                onClick={() => handleDelete(user._id)}
+                className="text-red-600 hover:text-red-800"
+              >
+                حذف
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

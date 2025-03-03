@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { verifyTokenAndAuthorization } = require("./middleware");
 
 const generateToken = (user) => {
   return jwt.sign(
@@ -60,6 +61,14 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/user", (req, res) => {
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ error: "Unauthorized access" });
+  }
+});
+
+router.get("/user", verifyTokenAndAuthorization, (req, res) => {
   if (req.user) {
     res.json(req.user);
   } else {

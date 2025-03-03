@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { getRequest } from "../requestMethods";
 import { useDispatch } from "react-redux";
-import { addToCart, updateCart, removeFromCart } from "../redux/cartActions";
+import { addToCart } from "../redux/cartActions";
+import Skeleton from "@mui/material/Skeleton";
 
 function ShopPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("همه");
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getRequest("products")
-      .then((res) => setProducts(res))
-      .catch((err) => console.error("Error fetching products:", err));
+    getRequest("products").then((res) => {
+      setProducts(res);
+      setLoading(false);
+    });
   }, []);
 
   const filteredProducts = products.filter((product) => {
@@ -82,7 +85,36 @@ function ShopPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredProducts ? (
+          {loading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-lg">
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={192}
+                  className="mb-4 rounded-lg"
+                />
+                <Skeleton
+                  variant="text"
+                  width="60%"
+                  height={24}
+                  className="mb-2"
+                />
+                <Skeleton
+                  variant="text"
+                  width="40%"
+                  height={24}
+                  className="mb-4"
+                />
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height={40}
+                  className="rounded-lg"
+                />
+              </div>
+            ))
+          ) : filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div
                 key={product._id}
@@ -136,7 +168,7 @@ function ShopPage() {
             ))
           ) : (
             <div className="flex h-screen w-full justify-center items-center">
-              loading...
+              هیچ محصولی یافت نشد.
             </div>
           )}
         </div>

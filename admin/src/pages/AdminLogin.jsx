@@ -1,12 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Container,
-  Typography,
-  Box,
-  TextField,
-  Alert,
-} from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postRequest } from "../RequestMethods";
@@ -47,71 +39,50 @@ function Login() {
     }
   };
   const handleChange = (e) => {
-    setEmailPass(prevData => ({
+    setEmailPass((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
   };
   return (
-    <Container maxWidth="sm">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h5" gutterBottom>
-          Login
-        </Typography>
+    <div className="w-full flex justify-center items-center" >
+      <div className="flex px-5 flex-col items-center justify-center h-screen text-center lg:w-1/2 md:w-2/3">
+        <h1 className="text-2xl">Login</h1>
 
         {error && (
-          <Alert severity="error" sx={{ width: "100%", marginBottom: "16px" }}>
+          <p severity="error" sx={{ width: "100%", marginBottom: "16px" }}>
             {error}
-          </Alert>
+          </p>
         )}
 
         <form onSubmit={handleLogin} style={{ width: "100%" }}>
-          <TextField
+          <input
             label="Email"
-            variant="outlined"
             name="email"
-            fullWidth
-            margin="normal"
+            className="w-full my-5 border-1 p-5"
             value={emailPass.email}
             onChange={handleChange}
             required
           />
-          <TextField
+          <input
             label="Password"
             type="password"
             name="password"
-            variant="outlined"
-            fullWidth
-            margin="normal"
+            className="w-full mb-5 border-1 p-5"
             value={emailPass.password}
             onChange={handleChange}
             required
           />
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              height: "50px",
-              marginTop: "16px",
-              backgroundColor: "green",
-            }}
+          <button
+            className="bg-green-400 w-full cursor-pointer p-5"
             type="submit"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}
-          </Button>
+          </button>
         </form>
-      </Box>
-    </Container>
+      </div>
+    </div>
   );
 }
 

@@ -5,10 +5,12 @@ import "slick-carousel/slick/slick-theme.css";
 import { getRequest } from "../requestMethods";
 import { addToCart } from "../redux/cartActions";
 import { useDispatch } from "react-redux";
+import Skeleton from "@mui/material/Skeleton";
 
 const EquipmentSlider = ({ category, title }) => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getRequest("products")
@@ -17,8 +19,8 @@ const EquipmentSlider = ({ category, title }) => {
           product.category.includes(category)
         );
         setProducts(filteredProducts);
+        setLoading(false);
       })
-      .catch((err) => console.error("Error fetching products:", err));
   }, [category]);
 
   const handleAddToCart = (product) => {
@@ -60,49 +62,82 @@ const EquipmentSlider = ({ category, title }) => {
           {title}
         </h2>
         <Slider {...settings}>
-          {products.map((item, idx) => (
-            <div key={idx} className="px-2">
-              <div className="medicine-card sm:w-full bg-gray-100 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                <img
-                  src={item?.images[0]}
-                  alt={item?.title}
-                  className="mb-4 mx-auto w-full h-48 md:h-56 object-cover rounded-lg"
-                />
-
-                <p className="text-center text-lg font-semibold text-gray-700">
-                  {item?.title}
-                </p>
-
-                {item?.discount && item?.discount > 0 ? (
-                  <div className="flex items-center space-x-2 mb-4">
-                    <span className="text-md font-semibold text-gray-500 line-through">
-                      {item?.price} AFN
-                    </span>
-                    <span className="text-md font-semibold text-green-600">
-                      {(
-                        item?.price -
-                        (item?.price * item?.discount) / 100
-                      ).toFixed(2)}{" "}
-                      AFN
-                    </span>
+          {loading
+            ?
+              Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="px-2">
+                  <div className="medicine-card sm:w-full bg-gray-100 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height={192}
+                      className="mb-4 rounded-lg"
+                    />
+                    <Skeleton
+                      variant="text"
+                      width="60%"
+                      height={24}
+                      className="mx-auto mb-2"
+                    />
+                    <Skeleton
+                      variant="text"
+                      width="40%"
+                      height={24}
+                      className="mx-auto mb-4"
+                    />
+                    <Skeleton
+                      variant="rectangular"
+                      width="100%"
+                      height={40}
+                      className="rounded-lg"
+                    />
                   </div>
-                ) : (
-                  <p className="text-md font-semibold text-green-600 mb-4">
-                    {item?.price} AFN
-                  </p>
-                )}
-
-                <div className="flex justify-center mt-4">
-                  <button
-                    onClick={() => handleAddToCart(item)}
-                    className="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300"
-                  >
-                    خرید
-                  </button>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))
+            : 
+              products.map((item, idx) => (
+                <div key={idx} className="px-2">
+                  <div className="medicine-card sm:w-full bg-gray-100 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <img
+                      src={item?.images[0]}
+                      alt={item?.title}
+                      className="mb-4 mx-auto w-full h-48 md:h-56 object-cover rounded-lg"
+                    />
+
+                    <p className="text-center text-lg font-semibold text-gray-700">
+                      {item?.title}
+                    </p>
+
+                    {item?.discount && item?.discount > 0 ? (
+                      <div className="flex items-center space-x-2 mb-4">
+                        <span className="text-md font-semibold text-gray-500 line-through">
+                          {item?.price} AFN
+                        </span>
+                        <span className="text-md font-semibold text-green-600">
+                          {(
+                            item?.price -
+                            (item?.price * item?.discount) / 100
+                          ).toFixed(2)}{" "}
+                          AFN
+                        </span>
+                      </div>
+                    ) : (
+                      <p className="text-md font-semibold text-green-600 mb-4">
+                        {item?.price} AFN
+                      </p>
+                    )}
+
+                    <div className="flex justify-center mt-4">
+                      <button
+                        onClick={() => handleAddToCart(item)}
+                        className="bg-green-600 cursor-pointer text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-300"
+                      >
+                        خرید
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
         </Slider>
       </div>
     </section>

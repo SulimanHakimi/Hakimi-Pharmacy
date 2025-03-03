@@ -22,12 +22,14 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5174",
       "https://hakimi-pharmacy-client.vercel.app",
-      "https://hakimi-pharmacy.vercel.app",
-      "https://hakimi-pharmacy-admin.vercel.app"
+      "https://hakimi-pharmacy-admin.vercel.app",
     ],
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+app.options("*", cors());
 
 app.use(
   session({
@@ -35,7 +37,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
+      mongoUrl:
+        process.env.NODE_ENV === "development"
+          ? process.env.MONGODB_URI_DEVELOPMENT
+          : process.env.MONGODB_URI_PRODUCTION,
       ttl: 14 * 24 * 60 * 60,
     }),
     cookie: {
@@ -47,10 +52,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    process.env.NODE_ENV === "development"
+      ? process.env.MONGODB_URI_DEVELOPMENT
+      : process.env.MONGODB_URI_PRODUCTION,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("DB connection is successful"))
   .catch((err) => {
     console.log(err);
