@@ -22,10 +22,12 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5174",
       "https://hakimi-pharmacy-client.vercel.app",
-      "https://hakimi-pharmacy.vercel.app",
-      "https://hakimi-pharmacy-admin.vercel.app"
+      "https://hakimi-pharmacy-admin.vercel.app",
     ],
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+
   })
 );
 
