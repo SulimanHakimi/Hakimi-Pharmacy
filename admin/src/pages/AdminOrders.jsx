@@ -56,12 +56,12 @@ const AdminOrders = () => {
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left">ایدی سفارش</th>
-              <th className="p-3 text-left">کاربر</th>
-              <th className="p-3 text-left">تعداد اقلام</th>
-              <th className="p-3 text-left">مجموع قیمت</th>
-              <th className="p-3 text-left">وضعیت</th>
-              <th className="p-3 text-left">عملیات</th>
+              <th className="p-3 text-right">ایدی سفارش</th>
+              <th className="p-3 text-right">کاربر</th>
+              <th className="p-3 text-right">تعداد اقلام</th>
+              <th className="p-3 text-right">مجموع قیمت</th>
+              <th className="p-3 text-right">وضعیت</th>
+              <th className="p-3 text-right">عملیات</th>
             </tr>
           </thead>
           <tbody>

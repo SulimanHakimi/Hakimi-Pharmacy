@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Helmet>
         <title>خانه | دواخانه حکیمی</title>
         <meta

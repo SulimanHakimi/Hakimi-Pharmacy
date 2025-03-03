@@ -194,10 +194,10 @@ const AdminBlog = () => {
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3">عنوان</th>
-              <th className="p-3 ">نویسنده</th>
-              <th className="p-3 ">تاریخ</th>
-              <th className="p-3 ">عملیات</th>
+              <th className="p-3 text-right">عنوان</th>
+              <th className="p-3 text-right ">نویسنده</th>
+              <th className="p-3 text-right ">تاریخ</th>
+              <th className="p-3 text-right ">عملیات</th>
             </tr>
           </thead>
           <tbody>

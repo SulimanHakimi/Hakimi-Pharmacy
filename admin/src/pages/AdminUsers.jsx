@@ -34,10 +34,10 @@ const AdminUsers = () => {
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left">نام</th>
-              <th className="p-3 text-left">ایمیل</th>
-              <th className="p-3 text-left">تصویر</th>
-              <th className="p-3 text-left">عملیات</th>
+              <th className="p-3 text-right">نام</th>
+              <th className="p-3 text-right">ایمیل</th>
+              <th className="p-3 text-right">تصویر</th>
+              <th className="p-3 text-right">عملیات</th>
             </tr>
           </thead>
           <tbody>

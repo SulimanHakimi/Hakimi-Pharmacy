@@ -94,7 +94,7 @@ const EquipmentSlider = ({ category, title }) => {
                   </div>
                 </div>
               ))
-            : // Show actual products once data is loaded
+            : 
               products.map((item, idx) => (
                 <div key={idx} className="px-2">
                   <div className="medicine-card sm:w-full bg-gray-100 p-4 rounded-lg shadow-lg hover:shadow-xl transition duration-300">

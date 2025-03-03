@@ -67,11 +67,11 @@ const AdminProducts = () => {
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3">ایدی</th>
-              <th className="p-3">نام</th>
-              <th className="p-3">قیمت</th>
-              <th className="p-3">موجودی</th>
-              <th className="p-3">اقدامات</th>
+              <th className="p-3 text-right">ایدی</th>
+              <th className="p-3 text-right">نام</th>
+              <th className="p-3 text-right">قیمت</th>
+              <th className="p-3 text-right">موجودی</th>
+              <th className="p-3 text-right">اقدامات</th>
             </tr>
           </thead>
           <tbody>

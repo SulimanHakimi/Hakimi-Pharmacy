@@ -77,10 +77,10 @@ const AdminPrescriptions = () => {
         <table className="w-full">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left">ایدی</th>
-              <th className="p-3 text-left">مریض</th>
-              <th className="p-3 text-left">فایل</th>
-              <th className="p-3 text-left">تاریخ</th>
+              <th className="p-3 text-right">ایدی</th>
+              <th className="p-3 text-right">مریض</th>
+              <th className="p-3 text-right">فایل</th>
+              <th className="p-3 text-right">تاریخ</th>
               <th className="p-3 text-left">حالت</th>
               <th className="p-3 text-left">اقدامات</th>
             </tr>

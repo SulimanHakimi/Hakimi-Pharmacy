@@ -10,6 +10,7 @@ function ProfilePage() {
   const [prescriptions, setPrescriptions] = useState([]);
   const [doctorRecommendations, setDoctorRecommendations] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (!user && !token) {
@@ -55,9 +56,15 @@ function ProfilePage() {
       postRequest(`prescription/upload`, {
         file: base64,
         userId: user._id,
-      }).catch((error) => {
-        console.error("Error uploading prescription:", error);
       });
+      setTimeout(() => {
+        setUploadSuccess(true);
+        e.target.value = "";
+      }, 2000);
+      setTimeout(() => {
+        setUploadSuccess(false);
+        e.target.value = "";
+      }, 4000);
     };
 
     reader.onerror = (error) => {
@@ -132,6 +139,12 @@ function ProfilePage() {
               className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700 transition duration-300"
             />
           </form>
+
+          {uploadSuccess && (
+            <div className="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+              <p className="text-sm">فایل با موفقیت آپلود شد!</p>
+            </div>
+          )}
         </div>
 
         <div className="bg-gray-100 p-6 md:p-8 rounded-lg shadow-lg mb-8">
@@ -210,6 +223,8 @@ function ProfilePage() {
                     <p className="text-lg font-semibold text-gray-700">
                       سفارش #{order._id}
                     </p>
+                  </div>
+                  <div className="flex justify-between items-center mb-4">
                     <p className="text-sm text-gray-600">
                       تاریخ: {order.createdAt}
                     </p>

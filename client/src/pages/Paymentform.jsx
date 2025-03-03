@@ -12,13 +12,13 @@ function PaymentPage() {
   const [address, setAddress] = useState({
     fullName: "",
     phone: "",
-    city: "",
-    street: "",
+    city: "Kabul",
+    location: "",
     postalCode: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const user = useSelector((state) => state?.user?.user?.user)
+  const user = useSelector((state) => state?.user?.user?.user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,10 +48,10 @@ function PaymentPage() {
           name: address.fullName,
           phone: address.phone,
           city: address.city,
-          street: address.street,
+          street: address.location,
           postalCode: address.postalCode,
         },
-        user: user ? user._id : null
+        user: user ? user._id : null,
       };
       const response = await postRequest("orders", orderData);
 
@@ -128,31 +128,130 @@ function PaymentPage() {
                   >
                     شهر
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="city"
                     name="city"
-                    value={address.city}
+                    defaultValue={"Kabul"}
                     onChange={handleAddressChange}
-                    placeholder="شهر"
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                     required
-                  />
+                  >
+                    <option value="Kabul">کابل</option>
+                    <option value="Herat" disabled>
+                      هرات
+                    </option>
+                    <option value="Kandahar" disabled>
+                      کندهار
+                    </option>
+                    <option value="Balkh" disabled>
+                      بلخ
+                    </option>
+                    <option value="Nangarhar" disabled>
+                      ننگرهار
+                    </option>
+                    <option value="Kunduz" disabled>
+                      کندز
+                    </option>
+                    <option value="Baghlan" disabled>
+                      بغلان
+                    </option>
+                    <option value="Badakhshan" disabled>
+                      بدخشان
+                    </option>
+                    <option value="Ghazni" disabled>
+                      غزنی
+                    </option>
+                    <option value="Helmand" disabled>
+                      هلمند
+                    </option>
+                    <option value="Farah" disabled>
+                      فراه
+                    </option>
+                    <option value="Nimruz" disabled>
+                      نیمروز
+                    </option>
+                    <option value="Ghor" disabled>
+                      غور
+                    </option>
+                    <option value="Daykundi" disabled>
+                      دایکندی
+                    </option>
+                    <option value="Urozgan" disabled>
+                      ارزگان
+                    </option>
+                    <option value="Zabul" disabled>
+                      زابل
+                    </option>
+                    <option value="Paktia" disabled>
+                      پکتیا
+                    </option>
+                    <option value="Paktika" disabled>
+                      پکتیکا
+                    </option>
+                    <option value="Logar" disabled>
+                      لوگر
+                    </option>
+                    <option value="Wardak" disabled>
+                      وردک
+                    </option>
+                    <option value="Parwan" disabled>
+                      پروان
+                    </option>
+                    <option value="Kapisa" disabled>
+                      کاپیسا
+                    </option>
+                    <option value="Panjshir" disabled>
+                      پنجشیر
+                    </option>
+                    <option value="Samangan" disabled>
+                      سمنگان
+                    </option>
+                    <option value="Bamyan" disabled>
+                      بامیان
+                    </option>
+                    <option value="Sar-e Pol" disabled>
+                      سرپل
+                    </option>
+                    <option value="Takhar" disabled>
+                      تخار
+                    </option>
+                    <option value="Badghis" disabled>
+                      بادغیس
+                    </option>
+                    <option value="Faryab" disabled>
+                      فاریاب
+                    </option>
+                    <option value="Jowzjan" disabled>
+                      جوزجان
+                    </option>
+                    <option value="Khost" disabled>
+                      خوست
+                    </option>
+                    <option value="Nuristan" disabled>
+                      نورستان
+                    </option>
+                    <option value="Kunar" disabled>
+                      کنر
+                    </option>
+                    <option value="Laghman" disabled>
+                      لغمان
+                    </option>
+                  </select>
                 </div>
                 <div>
                   <label
-                    htmlFor="street"
+                    htmlFor="location"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    آدرس سرک
+                    آدرس{" "}
                   </label>
                   <input
                     type="text"
-                    id="street"
-                    name="street"
-                    value={address.street}
+                    id="location"
+                    name="location"
+                    value={address.location}
                     onChange={handleAddressChange}
-                    placeholder="آدرس سرک"
+                    placeholder="آدرس"
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                     required
                   />
@@ -282,11 +381,11 @@ function PaymentPage() {
 
                   <div>
                     <button
+                      disabled
                       type="submit"
-                      className="w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300"
-                      disabled={isSubmitting}
+                      className="w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300 opacity-50 cursor-not-allowed"
                     >
-                      {isSubmitting ? "در حال اجرا..." : "پرداخت"}
+                      این روش پرداخت فعال نیست
                     </button>
                   </div>
                 </form>
