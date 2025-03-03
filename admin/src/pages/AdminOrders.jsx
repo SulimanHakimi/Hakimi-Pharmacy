@@ -17,9 +17,12 @@ const AdminOrders = () => {
     fetchOrders();
   }, []);
 
-  const handleStatusUpdate = async (id, status) => {
+  const handleStatusUpdate = async (id, status, email) => {
     try {
-      const response = await putRequest(`orders/${id}`, { status });
+      const response = await putRequest(`orders/${id}`, {
+        status: status,
+        email: email,
+      });
       setOrders(
         orders.map((order) =>
           order._id === id ? { ...order, status: response.status } : order
@@ -75,7 +78,11 @@ const AdminOrders = () => {
                   <select
                     value={order.status}
                     onChange={(e) =>
-                      handleStatusUpdate(order._id, e.target.value)
+                      handleStatusUpdate(
+                        order._id,
+                        e.target.value,
+                        order.shippingAddress.email
+                      )
                     }
                     className="p-2 border border-gray-300 rounded-lg"
                   >
@@ -109,10 +116,7 @@ const AdminOrders = () => {
       {/* Card layout for smaller screens */}
       <div className="lg:hidden space-y-4">
         {orders.map((order) => (
-          <div
-            key={order._id}
-            className="bg-white p-4 rounded-lg shadow-md"
-          >
+          <div key={order._id} className="bg-white p-4 rounded-lg shadow-md">
             <div className="space-y-2">
               <p>
                 <span className="font-semibold">ایدی سفارش:</span> {order._id}
@@ -134,7 +138,11 @@ const AdminOrders = () => {
                 <select
                   value={order.status}
                   onChange={(e) =>
-                    handleStatusUpdate(order._id, e.target.value)
+                    handleStatusUpdate(
+                      order._id,
+                      e.target.value,
+                      order.shippingAddress.email
+                    )
                   }
                   className="p-2 border border-gray-300 rounded-lg"
                 >

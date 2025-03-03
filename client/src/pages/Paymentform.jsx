@@ -12,6 +12,7 @@ function PaymentPage() {
   const [address, setAddress] = useState({
     fullName: "",
     phone: "",
+    email: "",
     city: "Kabul",
     location: "",
     postalCode: "",
@@ -47,6 +48,7 @@ function PaymentPage() {
         orderAddress: {
           name: address.fullName,
           phone: address.phone,
+          email: address.email,
           city: address.city,
           street: address.location,
           postalCode: address.postalCode,
@@ -117,6 +119,24 @@ function PaymentPage() {
                     value={address.phone}
                     onChange={handleAddressChange}
                     placeholder="شماره تماس"
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    ایمیل آدرس{" "}
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={address.email}
+                    onChange={handleAddressChange}
+                    placeholder="ایمیل آدرس"
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 transition duration-300"
                     required
                   />

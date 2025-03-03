@@ -70,7 +70,7 @@ const AdminPrescriptions = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Manage Prescriptions</h1>
+      <h1 className="text-2xl font-bold mb-6">مدیریت نسخه</h1>
 
       {/* Table for larger screens */}
       <div className="hidden lg:block bg-white p-6 rounded-lg shadow-md">
