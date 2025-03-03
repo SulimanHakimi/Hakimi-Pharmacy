@@ -10,7 +10,16 @@ const getHeaders = () => {
     },
   };
 };
-
+// Function to handle 403 error and logout user
+const handle403Error = (error) => {
+  if (error.response && error.response.status === 403) {
+    console.warn("Unauthorized access (403). Logging out...");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  }
+  throw error;
+};
 export const getRequest = async (endpoint) => {
   try {
     const response = await axios.get(`${BASE_URL}/${endpoint}`, {
@@ -19,8 +28,7 @@ export const getRequest = async (endpoint) => {
     });
     return response.data;
   } catch (error) {
-    console.error("GET Request Error:", error);
-    throw error;
+    handle403Error(error);
   }
 };
 
@@ -32,8 +40,7 @@ export const postRequest = async (endpoint, data) => {
     });
     return response.data;
   } catch (error) {
-    console.error("POST Request Error:", error);
-    throw error;
+    handle403Error(error);
   }
 };
 
@@ -46,8 +53,7 @@ export const putRequest = async (endpoint, data) => {
     );
     return response.data;
   } catch (error) {
-    console.error("PUT Request Error:", error);
-    throw error;
+    handle403Error(error);
   }
 };
 
@@ -59,7 +65,6 @@ export const deleteRequest = async (endpoint) => {
     );
     return response.data;
   } catch (error) {
-    console.error("DELETE Request Error:", error);
-    throw error;
+    handle403Error(error);
   }
 };
