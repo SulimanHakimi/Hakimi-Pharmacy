@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>وضعیت نسخه</title>
+    <style>
+      body {
+        font-family: "Tahoma", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        text-align: right !important;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2ecc71;
+        font-size: 24px;
+        text-align: center;
+      }
+      p {
+        font-size: 16px;
+        text-align: right;
+      }
+      .prescription-details {
+        background-color: #f1f1f1;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .prescription-details p {
+        text-align: right;
+        margin: 5px 0;
+      }
+      .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>وضعیت نسخه شما به‌روزرسانی شد</h1>
+      <p>{{name}} سلام</p>
+      <p>
+        وضعیت نسخه شما در دواخانه حکیمی به‌روزرسانی شده است. لطفاً جزئیات نسخه
+        خود را در زیر بررسی کنید
+      </p>
+
+      <div class="prescription-details">
+        <p>{{prescriptionNumber}} <strong>:شماره نسخه</strong></p>
+        <p><strong>تاریخ نسخه:</strong> {{prescriptionDate}}</p>
+        <p>{{prescriptionStatus}} <strong>:وضعیت فعلی</strong></p>
+        <p><strong>توضیحات:</strong> {{prescriptionNotes}}</p>
+      </div>
+
+      <p>
+        اگر سوالی دارید یا نیاز به کمک دارید، لطفاً با پشتیبانی ما تماس بگیرید
+      </p>
+
+      <div class="footer">
+        <p>با احترام</p>
+        <p><strong>تیم دواخانه حکیمی</strong></p>
+        <p>تماس با ما: ۰۷۸۴۹۶۶۰۱۸ | afgsuliman50@gmail.com</p>
+      </div>
+    </div>
+  </body>
+</html>
