@@ -6,16 +6,18 @@ import { setUser } from "../redux/userActions";
 const LoginSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get("token");
-  const userData = queryParams.get("user");
-  const user = userData ? JSON.parse(userData) : null;
+
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const token = queryParams.get("token");
+    const userData = queryParams.get("user");
+    const user = userData ? JSON.parse(userData) : null;
+    localStorage.setItem("token", token);
     dispatch(setUser({ user, token }));
     setTimeout(() => {
       navigate("/account");
     }, 2000);
-  }, [dispatch, navigate, token, user]);
+  }, [dispatch, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

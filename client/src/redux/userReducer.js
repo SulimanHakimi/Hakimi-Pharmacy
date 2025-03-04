@@ -1,20 +1,16 @@
 const savedUser = JSON.parse(localStorage.getItem("user")) || null;
-const savedToken = localStorage.getItem("token") || null;
-
 const initialState = {
   user: savedUser,
-  token: savedToken,
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_USER":
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      localStorage.setItem("token", action.payload.token);
-      
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
       };
 
     case "LOGOUT_USER":
