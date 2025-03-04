@@ -4,6 +4,7 @@ import EquipmentSlider from "../components/EquipmentSlider";
 import BlogSection from "../components/blog";
 import CustomerReviews from "../components/customerReviews";
 import { Helmet } from "react-helmet";
+import Footer from "../components/footer"
 
 const HomePage = () => {
   return (
@@ -25,16 +26,14 @@ const HomePage = () => {
       </Helmet>
       <Hero />
       <Category />
+      <EquipmentSlider category={"مسکن"} title={"مسکن های درد"} />
       <EquipmentSlider
-        category={"مکمل غذایی"}
-        title={"دستگاه‌های مراقبت شخصی و تجهیزات ورزشی"}
-      />
-      <EquipmentSlider
-        category="محصولات بهداشتی"
-        title="محصولات زیبایی و مراقبت پوست"
+        category="آنتی‌بیوتیک"
+        title="محصولات پرفروش این هفته"
       />
       <BlogSection />
       <CustomerReviews />
+      <Footer/>
     </div>
   );
 };

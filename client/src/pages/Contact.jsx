@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import Footer from "../components/footer"
 
 function ContactPage() {
   const [formData, setFormData] = useState({
@@ -34,6 +35,7 @@ function ContactPage() {
   };
 
   return (
+    <>
     <section className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8 text-gray-800">
@@ -206,6 +208,8 @@ function ContactPage() {
         </div>
       </div>
     </section>
+    <Footer/>
+    </>
   );
 }
 

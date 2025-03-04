@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, updateCart, removeFromCart } from "../redux/cartActions";
+import Footer from "../components/footer"
 
 function CartPage() {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -26,6 +27,7 @@ function CartPage() {
   };
 
   return (
+    <>
     <section className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8 text-gray-800">
@@ -113,6 +115,8 @@ function CartPage() {
         )}
       </div>
     </section>
+    <Footer/>
+    </>
   );
 }
 

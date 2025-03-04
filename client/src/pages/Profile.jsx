@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getRequest, postRequest } from "../requestMethods";
 import { logoutUser } from "../redux/userActions";
+import Footer from "../components/footer"
+
 function ProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -85,6 +87,7 @@ function ProfilePage() {
   };
 
   return (
+    <>
     <section className="py-12 md:py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8 text-gray-800">
@@ -266,6 +269,8 @@ function ProfilePage() {
         </div>
       </div>
     </section>
+    <Footer/>
+    </>
   );
 }
 
