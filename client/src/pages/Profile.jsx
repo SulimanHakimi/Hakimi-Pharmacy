@@ -14,11 +14,11 @@ function ProfilePage() {
   const [orders, setOrders] = useState([]);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const token = localStorage.getItem("token");
-  useEffect(() => {
-    if (!user && !token) {
-      navigate("/login");
-    }
-  }, [user, token]);
+  // useEffect(() => {
+  //   if (!user && !token) {
+  //     navigate("/login");
+  //   }
+  // }, [user, token]);
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
