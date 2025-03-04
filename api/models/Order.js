@@ -37,7 +37,7 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["در انتظار برسی", "تایید شد", "ارسال شد", "تحویل داده شد", "لغو شد"],
-    default: "pending",
+    default: "در انتظار برسی",
   },
   shippingAddress: {
     name: { type: String, required: true },

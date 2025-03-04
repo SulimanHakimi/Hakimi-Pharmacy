@@ -61,6 +61,9 @@
         color: #777;
         margin-top: 20px;
       }
+      h3 {
+        text-align: right;
+      }
     </style>
   </head>
   <body>
@@ -68,13 +71,13 @@
       <h1>سفارش شما با موفقیت ثبت شد</h1>
       <p>{{name}} عزیز</p>
       <p>
-        سفارش شما در دواخانه حکیمی با موفقیت ثبت شد. لطفاً جزئیات سفارش خود را در
-        زیر بررسی کنید
+        سفارش شما در دواخانه حکیمی با موفقیت ثبت شد. لطفاً جزئیات سفارش خود را
+        در زیر بررسی کنید
       </p>
 
       <div class="order-details">
         <p>{{orderNumber}} <strong>:شماره سفارش</strong></p>
-        <p> {{orderDate}} <strong>:تاریخ سفارش</strong></p>
+        <p>{{orderDate}} <strong>:تاریخ سفارش</strong></p>
         <p><strong>مبلغ کل:</strong> {{totalPrice}}</p>
 
         {{#each orderItems}}

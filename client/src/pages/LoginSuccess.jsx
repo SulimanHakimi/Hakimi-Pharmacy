@@ -13,6 +13,7 @@ const LoginSuccess = () => {
     const fetchUserData = async () => {
       try {
         const response = await getRequest("auth/user");
+        console.log(response)
         dispatch(setUser(response, token));
         setTimeout(() => {
           navigate("/account");

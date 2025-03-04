@@ -14,11 +14,11 @@ function ProfilePage() {
   const [orders, setOrders] = useState([]);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const token = localStorage.getItem("token");
-  // useEffect(() => {
-  //   if (!user && !token) {
-  //     navigate("/login");
-  //   }
-  // }, [user, token]);
+  useEffect(() => {
+    if (!user && !token) {
+      navigate("/login");
+    }
+  }, [user, token, navigate]);
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
@@ -59,7 +59,7 @@ function ProfilePage() {
     const file = e.target.files[0];
 
     if (!file) {
-      alert("لطفاً یک فایل انتخاب کنید!");
+      alert("لطفا یک فایل انتخاب کنید!");
       return;
     }
 
