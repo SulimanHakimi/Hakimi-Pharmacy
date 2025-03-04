@@ -25,7 +25,11 @@ router.get(
   }),
   (req, res) => {
     const token = generateToken(req.user);
-    res.redirect(`${process.env.CLIENT_URL}/login/success?token=${token}`);
+    res.redirect(
+      `${
+        process.env.CLIENT_URL
+      }/login/success?token=${token}&user=${JSON.stringify(req.user)}`
+    );
   }
 );
 
@@ -59,14 +63,5 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
-
-router.get("/user", (req, res) => {
-  if (req.user) {
-    res.json(req.user);
-  } else {
-    res.status(401).json({ error: "Unauthorized access" });
-  }
-});
-
 
 module.exports = router;
