@@ -54,7 +54,7 @@ function Header() {
                       to="/shop/general-medicines"
                       className="text-gray-700 hover:text-green-600"
                     >
-                      داروهای عمومی
+                      دواهای عمومی
                     </Link>
                   </li>
                   <li>
@@ -62,7 +62,7 @@ function Header() {
                       to="/shop/herbal-medicines"
                       className="text-gray-700 hover:text-green-600"
                     >
-                      داروهای گیاهی
+                      دواهای گیاهی
                     </Link>
                   </li>
                   <li>

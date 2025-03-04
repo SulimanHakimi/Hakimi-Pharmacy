@@ -36,7 +36,7 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "processed", "shipped", "delivered", "cancelled"],
+    enum: ["در انتظار برسی", "تایید شد", "ارسال شد", "تحویل داده شد", "لغو شد"],
     default: "pending",
   },
   shippingAddress: {

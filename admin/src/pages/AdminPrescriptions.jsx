@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { deleteRequest, getRequest, postRequest, putRequest } from "../RequestMethods";
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+  putRequest,
+} from "../RequestMethods";
 
 const AdminPrescriptions = () => {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -16,7 +21,11 @@ const AdminPrescriptions = () => {
     const fetchPrescriptions = async () => {
       try {
         const response = await getRequest("prescription");
-        setPrescriptions(response);
+        const updatedPrescriptions = response.map((prescription) => ({
+          ...prescription,
+          hasRecommendation: prescription.status === "بررسی شد" ? true : false,
+        }));
+        setPrescriptions(updatedPrescriptions);
       } catch (error) {
         console.error("Error fetching prescriptions:", error);
       }
@@ -61,7 +70,20 @@ const AdminPrescriptions = () => {
 
   const handleRecommendationSubmit = async () => {
     try {
-      const response = await postRequest("recommendations/create", recommendationData);
+      const response = await postRequest(
+        "recommendations/create",
+        recommendationData
+      );
+
+      const updatedPrescriptions = prescriptions.map((prescription) =>
+        prescription._id === selectedPrescription._id
+          ? { ...prescription, hasRecommendation: true }
+          : prescription
+      );
+      setPrescriptions(updatedPrescriptions);
+
+      await handleStatusUpdate(selectedPrescription._id, "بررسی شد");
+
       setShowRecommendationModal(false);
     } catch (error) {
       console.error("Error creating recommendation:", error);
@@ -109,8 +131,8 @@ const AdminPrescriptions = () => {
                     className="p-2 border border-gray-300 rounded-lg"
                   >
                     <option value="در انتظار بررسی">در انتظار بررسی</option>
-                    <option value="تایید شده">تایید شده</option>
-                    <option value="رد شده">رد شده</option>
+                    <option value="بررسی شد">بررسی شد</option>
+                    <option value="رد شد">رد شد</option>
                   </select>
                 </td>
                 <td className="p-3">
@@ -123,8 +145,11 @@ const AdminPrescriptions = () => {
                   <button
                     onClick={() => handleAddRecommendation(prescription)}
                     className="text-blue-600 hover:text-blue-800"
+                    disabled={prescription.hasRecommendation}
                   >
-                    افزودن توصیه برای این نسخه
+                    {prescription.hasRecommendation
+                      ? "توصیه ارسال شد"
+                      : "افزودن توصیه برای این نسخه"}
                   </button>
                 </td>
               </tr>
@@ -160,10 +185,11 @@ const AdminPrescriptions = () => {
                     handleStatusUpdate(prescription._id, e.target.value)
                   }
                   className="p-2 border border-gray-300 rounded-lg"
+                  disabled={!prescription.hasRecommendation} 
                 >
                   <option value="در انتظار بررسی">در انتظار بررسی</option>
-                  <option value="تایید شده">تایید شده</option>
-                  <option value="رد شده">رد شده</option>
+                  <option value="بررسی شد">بررسی شد</option>
+                  <option value="رد شد">رد شد</option>
                 </select>
               </p>
               <img
@@ -181,8 +207,11 @@ const AdminPrescriptions = () => {
                 <button
                   onClick={() => handleAddRecommendation(prescription)}
                   className="text-blue-600 hover:text-blue-800"
+                  disabled={prescription.hasRecommendation}
                 >
-                  افزودن توصیه برای نسخه
+                  {prescription.hasRecommendation
+                    ? "توصیه ارسال شد"
+                    : "افزودن توصیه برای نسخه"}
                 </button>
               </div>
             </div>

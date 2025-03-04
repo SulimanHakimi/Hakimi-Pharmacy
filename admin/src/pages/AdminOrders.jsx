@@ -86,11 +86,11 @@ const AdminOrders = () => {
                     }
                     className="p-2 border border-gray-300 rounded-lg"
                   >
-                    <option value="pending">در انتظار</option>
-                    <option value="processed">پردازش شده</option>
-                    <option value="shipped">ارسال شده</option>
-                    <option value="delivered">تحویل داده شده</option>
-                    <option value="cancelled">لغو شده</option>
+                    <option value="در انتظار برسی">در انتظار</option>
+                    <option value="تایید شد">تایید شده</option>
+                    <option value="ارسال شد">ارسال شده</option>
+                    <option value="تحویل داده شد">تحویل داده شده</option>
+                    <option value="لغو شد">لغو شده</option>
                   </select>
                 </td>
                 <td className="p-3">
@@ -146,11 +146,11 @@ const AdminOrders = () => {
                   }
                   className="p-2 border border-gray-300 rounded-lg"
                 >
-                  <option value="pending">در انتظار</option>
-                  <option value="processed">پردازش شده</option>
-                  <option value="shipped">ارسال شده</option>
-                  <option value="delivered">تحویل داده شده</option>
-                  <option value="cancelled">لغو شده</option>
+                  <option value="در انتظار برسی">در انتظار</option>
+                  <option value="تایید شد">تایید شده</option>
+                  <option value="ارسال شد">ارسال شده</option>
+                  <option value="تحویل داده شد">تحویل داده شده</option>
+                  <option value="لغو شد">لغو شده</option>
                 </select>
               </p>
               <div className="flex space-x-2">
@@ -187,6 +187,12 @@ const AdminOrders = () => {
                 <p className="text-gray-700">
                   <span className="font-semibold">کاربر:</span>{" "}
                   {selectedOrder.user?.name || "N/A"}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-700">
+                  <span className="font-semibold">ایمیل:</span>{" "}
+                  {selectedOrder.shippingAddress?.email || "N/A"}
                 </p>
               </div>
               <div>

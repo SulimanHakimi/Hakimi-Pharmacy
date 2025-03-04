@@ -1,8 +1,32 @@
+import { Helmet } from "react-helmet";
 import Footer from "../components/footer";
 
 function About() {
   return (
     <>
+      <Helmet>
+        <title>درباره ما | دواخانه حکیمی</title>
+        <meta
+          name="description"
+          content="دواخانه حکیمی ارائه‌دهنده انواع دواها و خدمات صحی با هدف تأمین دسترسی آسان به دواهای با کیفیت و مشاوره دوایی برای مردم افغانستان."
+        />
+        <meta
+          name="keywords"
+          content="دواخانه حکیمی, درباره ما, دواخانه آنلاین, مشاوره دوایی, خدمات صحی, دوا, ارسال سریع دوا, دواهای با کیفیت"
+        />
+
+        <meta property="og:title" content="درباره ما | دواخانه حکیمی" />
+        <meta
+          property="og:description"
+          content="دواخانه حکیمی ارائه‌دهنده انواع دواها و خدمات صحی با هدف تأمین دسترسی آسان به دواهای با کیفیت و مشاوره دوایی برای مردم افغانستان."
+        />
+        <meta property="og:image" content="../$assets/logo.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="fa" />
+      </Helmet>
       <div className="bg-gray-100 py-16">
         <div className="container mx-auto px-6">
           <section className="mb-16">

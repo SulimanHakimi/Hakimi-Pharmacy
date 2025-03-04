@@ -33,11 +33,14 @@ function SingleBlogPage() {
           {post.title ? `${post.title} | دواخانه حکیمی` : "دوا خانه آنلاین"}
         </title>
         <meta name="description" content={post.description} />
+        <meta name="keywords" content="دواخانه, دواخانه آنلاین, خرید دوا آنلاین, اطلاعات دوایی, بلاگ دوایی" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
         <meta property="og:image" content={post.image} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={window.location.href} />
+        <meta property="og:locale" content="fa_AF" />
+        <meta property="og:site_name" content="دواخانه حکیمی" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
