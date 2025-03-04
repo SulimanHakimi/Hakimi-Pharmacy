@@ -8,11 +8,10 @@ const LoginSuccess = () => {
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-  const user = queryParams.get("user");
-  const parsedUser = user ? JSON.parse(user) : null;
-
+  const userData = queryParams.get("user");
+  const user = userData ? JSON.parse(userData) : null;
   useEffect(() => {
-    dispatch(setUser({ parsedUser, token }));
+    dispatch(setUser({ user, token }));
     setTimeout(() => {
       navigate("/account");
     }, 2000);
