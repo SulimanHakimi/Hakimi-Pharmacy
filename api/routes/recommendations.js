@@ -5,7 +5,34 @@ const {
   verifyTokenAndAdmin,
   verifyTokenAndAuthorization,
 } = require("./middleware");
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
+const User = require("../models/User");
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+const getEmailTemplate = async (recommendation, user) => {
+  const templatePath = path.join(__dirname, "../emails/recomendition.html");
+
+  let html = fs.readFileSync(templatePath, "utf8");
+  const date = new Date(Date.now());
+  const formattedDate = date.toLocaleDateString('fa-IR');
+  html = html
+    .replace(/{{name}}/g, user.name || "عزیز")
+    .replace(/{{medicine}}/g, recommendation.medicine)
+    .replace(/{{dosage}}/g, recommendation.dosage)
+    .replace(/{{doctor}}/g, recommendation.doctor)
+    .replace(/{{recommendationDate}}/g, formattedDate);
+
+  return html;
+};
 router.post("/create", verifyTokenAndAdmin, async (req, res) => {
   try {
     const { medicine, dosage, doctor, user } = req.body;
@@ -18,6 +45,28 @@ router.post("/create", verifyTokenAndAdmin, async (req, res) => {
     });
 
     const savedRecommendation = await newRecommendation.save();
+    const userDetails = await User.findById(user);
+    if (!userDetails) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const emailHtml = await getEmailTemplate(savedRecommendation, userDetails);
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: userDetails.email,
+      subject: "👨‍⚕️ توصیه داکتر برای نسخه شما",
+      html: emailHtml,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
+
     res.status(201).json(savedRecommendation);
   } catch (err) {
     res
