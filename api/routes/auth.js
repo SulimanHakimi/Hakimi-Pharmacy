@@ -68,12 +68,5 @@ router.get("/user", (req, res) => {
   }
 });
 
-router.get("/user", verifyTokenAndAuthorization, (req, res) => {
-  if (req.user) {
-    res.json(req.user);
-  } else {
-    res.status(401).json({ error: "Unauthorized access" });
-  }
-});
 
 module.exports = router;

@@ -59,8 +59,8 @@ const HomePage = () => {
 
       <Hero />
       <Category />
-      <EquipmentSlider category={"مسکن"} title={"مسکن های درد"} />
-      <EquipmentSlider category="آنتی‌بیوتیک" title="محصولات پرفروش این هفته" />
+      <EquipmentSlider category={"ضد افسردگی"} title={"دوا های ضد افسردگی"} />
+      <EquipmentSlider category="آنتی‌بیوتیک" title="پرفروش ترین محصولات این هفته" />
       <BlogSection />
       <CustomerReviews />
       <Footer />
