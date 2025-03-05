@@ -29,31 +29,27 @@ function ProfilePage() {
       }
     };
 
-    const fetchDoctorRecommendations = async () => {
-      try {
-        const recommendations = await getRequest(`recommendations/${user._id}`);
-        setDoctorRecommendations(recommendations);
-      } catch (error) {
-        console.error("Error fetching doctor recommendations:", error);
-      }
-    };
-
-    const fetchPrescriptions = async () => {
-      try {
-        const prescriptions = await getRequest(`prescription/${user._id}`);
-        setPrescriptions(prescriptions);
-      } catch (error) {
-        console.error("Error fetching prescriptions:", error);
-      }
-    };
-
-    if (user && user._id) {
+    if (user) {
       fetchUserOrders();
-      fetchDoctorRecommendations();
-      fetchPrescriptions();
     }
   }, [user]);
+  const fetchDoctorRecommendations = async () => {
+    try {
+      const recommendations = await getRequest(`recommendations/${user._id}`);
+      setDoctorRecommendations(recommendations);
+    } catch (error) {
+      console.error("Error fetching doctor recommendations:", error);
+    }
+  };
 
+  const fetchPrescriptions = async () => {
+    try {
+      const prescriptions = await getRequest(`prescription/${user._id}`);
+      setPrescriptions(prescriptions);
+    } catch (error) {
+      console.error("Error fetching prescriptions:", error);
+    }
+  };
   const handlePrescriptionUpload = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -75,6 +71,9 @@ function ProfilePage() {
       postRequest(`prescription/upload`, {
         file: base64,
         userId: user._id,
+      }).then(() => {
+        fetchDoctorRecommendations();
+        fetchPrescriptions();
       });
       setTimeout(() => {
         setUploadSuccess(true);
@@ -92,11 +91,6 @@ function ProfilePage() {
     };
 
     reader.readAsDataURL(file);
-  };
-  const fetchDoctorRecommendations = () => {
-    getRequest(`recommendations/${user._id}`).then((res) => {
-      setDoctorRecommendations(res);
-    });
   };
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -154,7 +148,7 @@ function ProfilePage() {
               <input
                 type="file"
                 id="prescription-upload"
-                accept=".jpg,.png"
+                accept="image/*"
                 onChange={handlePrescriptionUpload}
                 className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700 transition duration-300"
               />

@@ -69,7 +69,14 @@ const AdminOrders = () => {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order._id} className={order.status === "تحویل داده شد" ? "bg-green-100 border-b" : "border-b"}>
+              <tr
+                key={order._id}
+                className={
+                  order.status === "تحویل داده شد"
+                    ? "bg-green-100 border-b"
+                    : "border-b"
+                }
+              >
                 <td className="p-3">{order._id}</td>
                 <td className="p-3">{order.user?.name || "N/A"}</td>
                 <td className="p-3">{order.items.length}</td>
@@ -116,7 +123,14 @@ const AdminOrders = () => {
       {/* Card layout for smaller screens */}
       <div className="lg:hidden space-y-4">
         {orders.map((order) => (
-          <div key={order._id} className="bg-white p-4 rounded-lg shadow-md">
+          <div
+            key={order._id}
+            className={
+              order.status === "تحویل داده شد"
+                ? "bg-green-100 p-4 rounded-lg shadow-md"
+                : "bg-white p-4 rounded-lg shadow-md"
+            }
+          >
             <div className="space-y-2">
               <p>
                 <span className="font-semibold">ایدی سفارش:</span> {order._id}

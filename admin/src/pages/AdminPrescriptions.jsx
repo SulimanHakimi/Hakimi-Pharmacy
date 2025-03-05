@@ -185,7 +185,7 @@ const AdminPrescriptions = () => {
                     handleStatusUpdate(prescription._id, e.target.value)
                   }
                   className="p-2 border border-gray-300 rounded-lg"
-                  disabled={!prescription.hasRecommendation} 
+                  disabled={!prescription.hasRecommendation}
                 >
                   <option value="در انتظار بررسی">در انتظار بررسی</option>
                   <option value="بررسی شد">بررسی شد</option>
@@ -204,6 +204,7 @@ const AdminPrescriptions = () => {
                 >
                   حذف
                 </button>
+
                 <button
                   onClick={() => handleAddRecommendation(prescription)}
                   className="text-blue-600 hover:text-blue-800"
@@ -211,7 +212,7 @@ const AdminPrescriptions = () => {
                 >
                   {prescription.hasRecommendation
                     ? "توصیه ارسال شد"
-                    : "افزودن توصیه برای نسخه"}
+                    : "افزودن توصیه برای این نسخه"}
                 </button>
               </div>
             </div>
