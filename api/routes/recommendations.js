@@ -23,7 +23,7 @@ const getEmailTemplate = async (recommendation, user) => {
 
   let html = fs.readFileSync(templatePath, "utf8");
   const date = new Date(Date.now());
-  const formattedDate = date.toLocaleDateString('fa-IR');
+  const formattedDate = date.toLocaleDateString("fa-IR");
   html = html
     .replace(/{{name}}/g, user.name || "عزیز")
     .replace(/{{medicine}}/g, recommendation.medicine)
@@ -76,7 +76,10 @@ router.post("/create", verifyTokenAndAdmin, async (req, res) => {
 });
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const recommendations = await Recommendation.find();
+    const recommendations = await Recommendation.find().sort({ createdAt: -1 });
+    if (!recommendations || recommendations.length === 0) {
+      return res.status(404).json({ message: "No recommendations found" });
+    }
     res.status(200).json(recommendations);
   } catch (err) {
     res
@@ -87,7 +90,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 
 router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const recommendation = await Recommendation.find({ user: req.params.id });
+    const recommendation = await Recommendation.find({ user: req.params.id }).sort({ createdAt: -1 });
 
     if (!recommendation) {
       return res.status(404).json({ message: "recommendation not found" });

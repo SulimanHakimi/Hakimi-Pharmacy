@@ -5,7 +5,7 @@ const { verifyTokenAndAdmin } = require("./middleware");
 
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const carts = await Cart.find();
+    const carts = await Cart.find().sort({ createdAt: -1 });
     res.status(200).json(carts);
   } catch (err) {
     res.status(500).json({ message: "Error retrieving carts", error: err });

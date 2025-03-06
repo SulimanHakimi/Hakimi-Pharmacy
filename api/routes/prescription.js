@@ -27,6 +27,9 @@ router.post("/upload", verifyTokenAndAuthorization, async (req, res) => {
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const prescriptions = await Prescription.find().sort({ createdAt: -1 });
+    if (!prescriptions || prescriptions.length === 0) {
+      return res.status(404).json({ message: "No prescriptions found" });
+    }
     res.status(200).json(prescriptions);
   } catch (error) {
     res.status(500).json({ error: error.message });
