@@ -52,7 +52,7 @@ function About() {
                   className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
                 />
                 <h4 className="text-xl font-semibold text-gray-800">
-                  داکتر سلیمان حکیمی
+                  سلیمان حکیمی
                 </h4>
                 <p className="text-gray-600"> دواساز و توسعه دهنده ویبسایت</p>
               </div>
