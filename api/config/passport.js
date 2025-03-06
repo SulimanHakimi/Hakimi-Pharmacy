@@ -2,7 +2,25 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/User");
 require("dotenv").config();
+const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+const getEmailTemplate = async (name) => {
+  const templatePath = path.join(__dirname, "../emails/account.html");
+  let html = fs.readFileSync(templatePath, "utf8");
+
+  html = html.replace(/{{name}}/g, name || "عزیز");
+  return html;
+};
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -41,6 +59,24 @@ passport.use(
             profileUrl: profile.profileUrl || "",
           });
           await user.save();
+          const userEmail = profile.emails[0].value;
+
+          const emailHtml = await getEmailTemplate(profile.displayName);
+
+          const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: userEmail,
+            subject: "🥳 به خانواده ما خوش آمدید",
+            html: emailHtml,
+          };
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error("Error sending email:", error);
+            } else {
+              console.log("Email sent:", info.response);
+            }
+          });
         }
 
         done(null, user);

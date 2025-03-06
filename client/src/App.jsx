@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,7 +8,6 @@ import {
 import Login from "./pages/Login";
 import About from "./pages/About";
 import Header from "./components/header";
-import Footer from "./components/footer";
 import ContactPage from "./pages/Contact";
 import BlogPage from "./pages/Blog";
 import SingleBlogPage from "./pages/SingleBlog";
@@ -24,15 +23,9 @@ import HomePage from "./pages/Home";
 
 const AppContent = () => {
   const location = useLocation();
-  const hideFooterRoutes = [
-    "/login",
-    "/login/success",
-    "/payment",
-    "/blog/post/:id",
-    "/success/:id",
-  ];
-  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
   return (
     <>
       <Header />
@@ -52,7 +45,6 @@ const AppContent = () => {
         <Route path="/success/:id" element={<SuccessPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
-      {!shouldHideFooter && <Footer />}
     </>
   );
 };

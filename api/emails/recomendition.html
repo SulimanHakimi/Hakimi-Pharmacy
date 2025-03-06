@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>توصیه داکتر برای نسخه شما</title>
+    <style>
+      body {
+        font-family: "Tahoma", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        text-align: right !important;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2ecc71;
+        font-size: 24px;
+        text-align: center;
+      }
+      p {
+        font-size: 16px;
+        text-align: right;
+      }
+      .recommendation-details {
+        background-color: #f1f1f1;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+      .recommendation-details p {
+        text-align: right;
+        margin: 5px 0;
+      }
+      .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>توصیه داکتر برای نسخه شما</h1>
+      <p>عزیز، سلام {{name}}</p>
+      <p>
+        یک توصیه داکتر جدید برای نسخه شما در سیستم ما ثبت شده است. لطفاً جزئیات
+        توصیه را در زیر بررسی کنید
+      </p>
+
+      <div class="recommendation-details">
+        <p><strong>:دوا</strong> {{medicine}}</p>
+        <p><strong>:دوز مصرفی</strong> {{dosage}}</p>
+        <p><strong>:داکتر</strong>{{doctor}}</p>
+        <p><strong>تاریخ توصیه:</strong> {{recommendationDate}}</p>
+      </div>
+
+      <p>
+        اگر سوالی دارید یا نیاز به راهنمایی بیشتر دارید، لطفاً با پشتیبانی ما
+        تماس بگیرید
+      </p>
+
+      <div class="footer">
+        <p>با احترام</p>
+        <p><strong>تیم دواخانه حکیمی</strong></p>
+        <p>تماس با ما: ۰۷۸۴۹۶۶۰۱۸ | afgsuliman50@gmail.com</p>
+      </div>
+    </div>
+  </body>
+</html>

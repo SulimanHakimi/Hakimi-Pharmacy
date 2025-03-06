@@ -5,10 +5,13 @@ const { verifyTokenAndAdmin } = require("./middleware");
 
 router.get("/", async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    const blogs = await Blog.find().sort({ createdAt: -1 });
+    if (!blogs || blogs.length === 0) {
+      return res.status(404).json({ message: "No blogs found" });
+    }
     res.status(200).json(blogs);
   } catch (err) {
-    res.status(500).json({ message: "Error retrieving blogs"});
+    res.status(500).json({ message: "Error retrieving blogs" });
   }
 });
 
@@ -20,7 +23,7 @@ router.get("/:id", async (req, res) => {
     }
     res.status(200).json(blog);
   } catch (err) {
-    res.status(500).json({ message: "Error retrieving blog"});
+    res.status(500).json({ message: "Error retrieving blog" });
   }
 });
 

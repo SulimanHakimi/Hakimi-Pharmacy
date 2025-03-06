@@ -3,6 +3,7 @@ import { Button, Container, Typography, Box } from "@mui/material";
 import { Google } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer"
 
 function Login() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Login() {
     window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   };
   return (
+    <>
     <Container maxWidth="sm">
       <Box
         sx={{
@@ -53,6 +55,8 @@ function Login() {
         </Button>
       </Box>
     </Container>
+    <Footer/>
+    </>
   );
 }
 

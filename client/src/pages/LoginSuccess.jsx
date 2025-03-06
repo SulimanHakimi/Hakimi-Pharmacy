@@ -2,28 +2,21 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../redux/userActions";
-import { getRequest } from "../requestMethods";
 
 const LoginSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get("token");
-    const fetchUserData = async () => {
-      try {
-        const response = await getRequest("auth/user");
-        dispatch(setUser(response, token));
-        setTimeout(() => {
-          navigate("/account");
-        }, 2000);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-        navigate("/login");
-      }
-    };
-
-    fetchUserData();
+    const userData = queryParams.get("user");
+    const user = userData ? JSON.parse(userData) : null;
+    localStorage.setItem("token", token);
+    dispatch(setUser({ user, token }));
+    setTimeout(() => {
+      navigate("/account");
+    }, 2000);
   }, [dispatch, navigate]);
 
   return (
