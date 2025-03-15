@@ -2,7 +2,7 @@ import React from "react";
 
 function Hero() {
   return (
-    <section className="hero bg-gradient-to-r from-green-400 to-white py-22 md:py-26 text-center text-white animate__animated animate__fadeIn animate__delay-2s">
+    <section className="bg-cover bg-center h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-white py-22 md:py-26 text-center text-white animate__animated animate__fadeIn animate__delay-2s">
       <div className="container mx-auto px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
           ما به شما اعتماد می‌دهیم، شما به ما اعتماد کنید{" "}
