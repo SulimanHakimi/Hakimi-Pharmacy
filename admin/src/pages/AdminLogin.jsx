@@ -33,52 +33,71 @@ function Login() {
         navigate("/");
       }
     } catch (err) {
-      setError("Login failed. Please check your credentials.");
+      setError("ورود ناموفق بود. لطفا اطلاعات خود را بررسی کنید.");
     } finally {
       setLoading(false);
     }
   };
+
   const handleChange = (e) => {
     setEmailPass((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
   };
+
   return (
-    <div className="w-full flex justify-center items-center" >
-      <div className="flex px-5 flex-col items-center justify-center h-screen text-center lg:w-1/2 md:w-2/3">
-        <h1 className="text-2xl">Login</h1>
-
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-green-100 via-white to-green-200">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center">
+        <img src="/logo.png" alt="Logo" className="w-40 h-40 mb-6 rounded-full shadow-md" />
+        <h1 className="text-3xl font-bold text-green-700 mb-8 tracking-tight">ورود مدیر</h1>
         {error && (
-          <p severity="error" sx={{ width: "100%", marginBottom: "16px" }}>
+          <div className="w-full mb-4 px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm text-right">
             {error}
-          </p>
+          </div>
         )}
-
-        <form onSubmit={handleLogin} style={{ width: "100%" }}>
-          <input
-            label="Email"
-            name="email"
-            className="w-full my-5 border-1 p-5"
-            value={emailPass.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            label="Password"
-            type="password"
-            name="password"
-            className="w-full mb-5 border-1 p-5"
-            value={emailPass.password}
-            onChange={handleChange}
-            required
-          />
+        <form onSubmit={handleLogin} className="w-full flex flex-col gap-5">
+          <div className="flex flex-col gap-2 text-right">
+            <label htmlFor="email" className="text-sm font-medium text-gray-700 pr-1">
+              ایمیل
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="username"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+              value={emailPass.email}
+              onChange={handleChange}
+              required
+              placeholder="ایمیل خود را وارد کنید"
+              dir="ltr"
+            />
+          </div>
+          <div className="flex flex-col gap-2 text-right">
+            <label htmlFor="password" className="text-sm font-medium text-gray-700 pr-1">
+              رمز عبور
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400 transition"
+              value={emailPass.password}
+              onChange={handleChange}
+              required
+              placeholder="رمز عبور خود را وارد کنید"
+              dir="ltr"
+            />
+          </div>
           <button
-            className="bg-green-400 w-full cursor-pointer p-5"
+            className={`w-full py-3 mt-2 rounded-lg font-bold text-white transition 
+              ${loading ? "bg-green-300 cursor-not-allowed" : "bg-green-500 hover:bg-green-600 cursor-pointer"}`}
             type="submit"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "در حال ورود..." : "ورود"}
           </button>
         </form>
       </div>
