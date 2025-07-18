@@ -322,7 +322,60 @@ function PaymentPage() {
                 >
                   پرداخت با کارت
                 </button>
+                <button
+                  onClick={() => setPaymentMethod("crypto")}
+                  className={`px-4 py-2 rounded-lg transition duration-300 ${
+                    paymentMethod === "crypto"
+                      ? "bg-green-600 text-white"
+                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-200"
+                  }`}
+                >
+                  پرداخت رمز ارز
+                </button>
+                <button
+                  onClick={() => setPaymentMethod("hesap")}
+                  className={`px-4 py-2 rounded-lg transition duration-300 ${
+                    paymentMethod === "hesap"
+                      ? "bg-green-600 text-white"
+                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-200"
+                  }`}
+                >
+                  حساب پی (QR)
+                </button>
               </div>
+
+              {paymentMethod === "crypto" && (
+                <div className="space-y-4">
+                  <p className="text-gray-700">برای پرداخت با رمز ارز، مبلغ را به آدرس زیر ارسال کنید:</p>
+                  <div className="flex items-center bg-white border rounded-lg p-2">
+                    <span className="font-mono text-green-700 select-all text-sm">0x1234abcd5678efgh9012ijklmnopqrstuvwx</span>
+                    <button
+                      className="ml-2 px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs"
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText('0x1234abcd5678efgh9012ijklmnopqrstuvwx');
+                      }}
+                    >
+                      کپی
+                    </button>
+                  </div>
+                  <p className="text-xs text-gray-500">پس از پرداخت، رسید را به پشتیبانی ارسال کنید.</p>
+                </div>
+              )}
+
+              {paymentMethod === "hesap" && (
+                <div className="space-y-4">
+                  <p className="text-gray-700">برای پرداخت با حساب پی، کد QR زیر را اسکن کنید:</p>
+                  <div className="flex justify-center">
+                    <img
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=hesappay:pay-to-merchant-123456"
+                      alt="Hesap Pay QR"
+                      className="rounded border"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-500">پس از پرداخت، رسید را به پشتیبانی ارسال کنید.</p>
+                </div>
+              )}
 
               {paymentMethod === "card" && (
                 <form onSubmit={handlePaymentSubmit} className="space-y-4">
