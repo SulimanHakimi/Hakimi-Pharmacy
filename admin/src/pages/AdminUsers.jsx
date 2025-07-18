@@ -1,40 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { deleteRequest, getRequest } from "../RequestMethods";
+import useCachedFetch from "../useCachedFetch";
 
 const DEFAULT_AVATAR = "/logo.png";
 
+const fetchUsers = async () => {
+  const response = await getRequest("users");
+  return Array.isArray(response)
+    ? response
+    : Array.isArray(response?.users)
+    ? response.users
+    : [];
+};
+
 const AdminUsers = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: users = [], loading } = useCachedFetch(
+    "admin_users",
+    fetchUsers,
+    { expiryMinutes: 60 } // cache for 1 hour
+  );
   const [deleteLoading, setDeleteLoading] = useState(null); // user id being deleted
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+  const [localUsers, setLocalUsers] = useState(null); // for immediate UI update after delete
 
-  // Fetch users
-  const fetchUsers = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await getRequest("users");
-      // Defensive: handle both array and object with .users
-      const usersArr = Array.isArray(response)
-        ? response
-        : Array.isArray(response?.users)
-        ? response.users
-        : [];
-      setUsers(usersArr);
-    } catch (err) {
-      setError("خطا در دریافت کاربران.");
-      console.error("Error fetching users:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsers();
-    // eslint-disable-next-line
-  }, []);
+  const displayedUsers = localUsers || users;
 
   const handleDelete = async (id) => {
     if (!window.confirm("آیا از حذف این کاربر مطمئن هستید؟")) return;
@@ -43,7 +33,12 @@ const AdminUsers = () => {
     setSuccessMsg(null);
     try {
       await deleteRequest(`users/${id}`);
-      setUsers((prev) => prev.filter((user) => user._id !== id));
+      const updatedUsers = displayedUsers.filter((user) => user._id !== id);
+      setLocalUsers(updatedUsers);
+      localStorage.setItem(
+        "admin_users",
+        JSON.stringify({ value: updatedUsers, timestamp: Date.now() })
+      );
       setSuccessMsg("کاربر با موفقیت حذف شد.");
     } catch (err) {
       setError("خطا در حذف کاربر.");
@@ -80,14 +75,14 @@ const AdminUsers = () => {
         </div>
       )}
 
-      {!loading && users.length === 0 && !error && (
+      {!loading && displayedUsers.length === 0 && !error && (
         <div className="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-lg text-center">
           هیچ کاربری یافت نشد.
         </div>
       )}
 
       {/* Table for larger screens */}
-      {!loading && users.length > 0 && (
+      {!loading && displayedUsers.length > 0 && (
         <div className="hidden lg:block bg-white p-6 rounded-lg shadow-md">
           <table className="w-full">
             <thead>
@@ -99,7 +94,7 @@ const AdminUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {displayedUsers.map((user) => (
                 <tr key={user._id} className="border-b">
                   <td className="p-3">{user.name || <span className="text-gray-400">-</span>}</td>
                   <td className="p-3">{user.email || <span className="text-gray-400">-</span>}</td>
@@ -128,9 +123,9 @@ const AdminUsers = () => {
       )}
 
       {/* Card layout for smaller screens */}
-      {!loading && users.length > 0 && (
+      {!loading && displayedUsers.length > 0 && (
         <div className="lg:hidden space-y-4">
-          {users.map((user) => (
+          {displayedUsers.map((user) => (
             <div
               key={user._id}
               className="bg-white p-4 rounded-lg shadow-md"

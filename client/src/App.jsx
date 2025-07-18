@@ -20,6 +20,7 @@ import LoginSuccess from "./pages/LoginSuccess";
 import NotFoundPage from "./pages/NotFound";
 import CategoryPage from "./pages/CatagoryShop";
 import HomePage from "./pages/Home";
+import Register from "./pages/Register";
 
 const AppContent = () => {
   const location = useLocation();
@@ -43,6 +44,7 @@ const AppContent = () => {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/success/:id" element={<SuccessPage />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </>

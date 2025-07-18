@@ -1,51 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Container, Typography, Box, TextField } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Footer from "../components/footer";
-import { setUser } from "../redux/userActions";
 import { postRequest } from "../requestMethods";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      navigate("/account");
-    }
-  }, [user, navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleManualLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
-      const response = await postRequest("auth/login", { emailPass: form });
-      if (response.token && response.user) {
-        localStorage.setItem("token", response.token);
-        dispatch(setUser({ user: response.user, token: response.token }));
-        navigate("/account");
+      const response = await postRequest("auth/register", form);
+      if (response && response._id) {
+        navigate("/login");
       } else {
-        setError("ورود ناموفق بود. لطفا اطلاعات خود را بررسی کنید.");
+        setError("ثبت نام ناموفق بود. لطفا اطلاعات خود را بررسی کنید.");
       }
     } catch (err) {
-      setError("ورود ناموفق بود. لطفا اطلاعات خود را بررسی کنید.");
+      setError("ثبت نام ناموفق بود. لطفا اطلاعات خود را بررسی کنید.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   };
 
   return (
@@ -62,13 +46,20 @@ function Login() {
           }}
         >
           <Typography variant="h3" sx={{ marginBottom: 3 }}>
-            به دواخانه حکیمی خوش آمدید
+            ثبت نام
           </Typography>
-          <Typography variant="body1" sx={{ marginBottom: 3 }}>
-            لطفاً وارد شوید تا ادامه دهید
-          </Typography>
-
-          <form onSubmit={handleManualLogin} style={{ width: "100%", marginBottom: 16 }}>
+          <form onSubmit={handleRegister} style={{ width: "100%", marginBottom: 16 }}>
+            <TextField
+              label="نام"
+              name="name"
+              type="text"
+              value={form.name}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+              dir="rtl"
+            />
             <TextField
               label="ایمیل"
               name="email"
@@ -104,29 +95,11 @@ function Login() {
               sx={{ height: "50px", fontWeight: "bold", backgroundColor: "#00a63e", mt: 2 }}
               disabled={loading}
             >
-              {loading ? "در حال ورود..." : "ورود"}
+              {loading ? "در حال ثبت نام..." : "ثبت نام"}
             </Button>
           </form>
-
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              height: "50px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: "bold",
-              backgroundColor: "#4285F4",
-              mb: 2,
-            }}
-            onClick={handleGoogleLogin}
-          >
-            ورود با گوگل
-          </Button>
-
           <Typography variant="body2" sx={{ mt: 2 }}>
-            حساب کاربری ندارید؟ <Link to="/register">ثبت نام</Link>
+            حساب کاربری دارید؟ <Link to="/login">ورود</Link>
           </Typography>
         </Box>
       </Container>
@@ -135,4 +108,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register; 
